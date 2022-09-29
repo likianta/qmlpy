@@ -1,4 +1,5 @@
 from .id_system import id_gen
+from .black_magic import this
 
 
 class T:
@@ -13,9 +14,11 @@ class ContextManager:
         self._node = self._root
         self._node_history = []
     
-    def upgrade(self, obj: T.Component):
+    def lift(self, comp: T.Component):
+        this._pointer = comp
+        
         temp = []
-        self._node.append((obj, temp))
+        self._node.append((comp, temp))
         last_node, self._node = self._node, temp
         self._node_history.append(last_node)
         
@@ -45,7 +48,7 @@ class ContextManager:
         self._id_gen.upgrade()
         return self._id_gen.gen_id()
     
-    def downgrade(self):
+    def drop(self):
         self._node = self._node_history.pop()
         self._id_gen.downgrade()
     
