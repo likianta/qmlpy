@@ -1,0 +1,70 @@
+from qmlpy.widgets import *
+
+
+def main():
+    with LKWindow() as win:
+        win.color = pycolor.win_bg
+
+        with Sidebar() as sbar:
+            sbar.anchors = {
+                'top'    : win.top,
+                'bottom' : win.bottom,
+                'left'   : win.left,
+                'margins': (12, 8),
+            }
+            sbar.width = dyna(min(160, win.width))
+
+            @sbar.clicked
+            def _on_clicked(idx: int, txt: str):
+                print(f'sidebar clicked at #{idx}: {txt}')
+                mainview.current_index = idx
+                # TEST
+                if idx == 1:
+                    this.show_sub_sidebar()
+                    edc.load_sidebar(this.sub_side_bar)
+                else:
+                    this.hide_sub_sidebar()
+                if idx == 7:
+                    debugger.start_ipython()
+
+        with SwipeView() as mainview:
+            # this.update({
+            #     'clip': True,
+            #     'interactive': True,
+            # })
+            this.anchors = {
+                'fill'   : parent,
+                'left'   : sbar.right,
+                'margins': (12, 8, 8, 8),
+            }
+            this.clip = True
+            this.interactive = True
+
+            with Dashboard():
+                pass
+
+            with EyeDiagramChecker():
+                pass
+
+            with SingleRegister():
+                pass
+
+            with BatchRegister():
+                pass
+
+            with EmptyPage():
+                this.placeholder = 'REGMAP LOADER'
+
+            with EmptyPage():
+                this.placeholder = 'SETTINGS'
+
+            with Debugger() as debugger:
+                pass
+
+        @win.completed
+        def _():
+            post_init()
+
+
+def post_init():
+    pass
