@@ -2,13 +2,23 @@
 
 ## What
 
-Introduce QML-like declarative structure to Python world. Developer writes only **pure Python code** for QML.
+Introduce QML-like declarative structure to Python world. Developer writes only
+**pure Python code** for QML.
 
 ## Naming convention
 
 QmlPy depends on QtPy, I'd like to use the same naming style.
 
-BTW qmlpy is available across PyQt5, PyQt6, PySide2 and PySide6.
+QmlPy is available across PyQt5, PyQt6, PySide2 and PySide6.
+
+## Install
+
+It's not ready to be published to PyPI. Currently you can install it via github
+repo:
+
+```
+pip install git+https://github.com/likianta/qmlpy
+```
 
 ## What it be like
 
@@ -55,7 +65,7 @@ if __name__ == '__main__':
     main()
 ```
 
-It can be converted to QML like:
+It can be translated to QML code, like below:
 
 ```qml
 import QtQuick
