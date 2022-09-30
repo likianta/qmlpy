@@ -47,7 +47,11 @@ class Id:
 
 
 class T:
-    Component = ...
+    if __name__ == '__main__':
+        # never reachable case, just for type hint.
+        from ..core import Component
+    else:
+        Component = t.Any
     Componentx = t.Optional[Component]
     Id = Id
     Idx = t.Optional[Id]
@@ -89,6 +93,9 @@ class IdFinder:
         self._curr_id = None
         self._root_id = Id(())
         self._global_ids = {}
+    
+    def set_current_id(self, id_: T.Id) -> None:
+        self._curr_id = id_
     
     @property
     def curr_id(self) -> T.Idx:
