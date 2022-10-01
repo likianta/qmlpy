@@ -49,7 +49,7 @@ class Id:
 class T:
     if __name__ == '__main__':
         # never reachable case, just for type hint.
-        from ..core import Component
+        from ..component import Component
     else:
         Component = t.Any
     Componentx = t.Optional[Component]
