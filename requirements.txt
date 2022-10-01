@@ -1,6 +1,6 @@
 argsense
 lambda-ex
 lk-logger >= 5.4.0
-lk-utils >= 2.4.0b5
+lk-utils >= 2.4.0b6
 pyside6
 qtpy

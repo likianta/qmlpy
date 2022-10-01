@@ -1,8 +1,7 @@
 from collections import defaultdict
 
-from lk_logger import lk
 from lk_utils import dumps
-from lk_utils import loads
+from lk_utils import loads, relpath
 
 from blueprint.src import io
 from blueprint.src.common import camel_2_snake_case
@@ -10,6 +9,11 @@ from blueprint.src.typehint import *
 
 
 def main(**kwargs):
+    """
+    kwargs:
+        strip_unrecognized_properties: True
+        use_snake_case: True
+    """
     file_i = io.json_3
     data_r = loads(file_i)  # type: TJson3Data
     
@@ -34,11 +38,11 @@ def main(**kwargs):
         keys_to_pop = []
         for k, v in group_attrs.items():
             if k not in group_names:
-                lk.logp(k, v, title='key to pop')
+                print('key to pop', k, v)
                 keys_to_pop.append(k)
         for k in keys_to_pop:
             group_attrs.pop(k)
-
+    
     # sort dict
     group_attrs, temp = defaultdict(dict), group_attrs
     for k0 in sorted(temp):
@@ -50,10 +54,10 @@ def main(**kwargs):
                 new_k0 = k0
                 new_k1 = k1
             group_attrs[new_k0][new_k1] = temp[k0][k1]
-
+    
     # dump to file
-    file_o = './result.json'
-    dumps(group_attrs, file_o, pretty_dump=True)
+    file_o = relpath('../../resources/other/group_props.json')
+    dumps(group_attrs, file_o)
 
 
 if __name__ == '__main__':
