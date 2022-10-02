@@ -1,15 +1,14 @@
 from qmlpy import Application
 from qmlpy.widgets import *
 
-
 with Application() as app:
-    with Windows() as win:
-        win.width = 400
-        win.height = 300
+    with Window() as win:
+        win.title = 'Hello World'
         
-        with Text() as txt:
+        with (txt := Text()):
+            txt.content_width
             txt.anchors.center = win
             txt.text = 'hello world'
-            
+        
         app.build()
         # app.run()

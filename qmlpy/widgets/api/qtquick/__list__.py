@@ -5,11 +5,11 @@ class Item(QtObject, W.PsItem):
     pass
 
 
-class Animation(C, W.PsAnimation):
+class Animation(W.PsAnimation, C):
     pass
 
 
-class PointerHandler(C, W.PsPointerHandler):
+class PointerHandler(W.PsPointerHandler, C):
     pass
 
 
@@ -45,7 +45,7 @@ class Image(Item, W.PsImage):
     pass
 
 
-class Accessible(C, W.PsAccessible):
+class Accessible(W.PsAccessible, C):
     pass
 
 
@@ -53,7 +53,7 @@ class AnchorAnimation(Animation, W.PsAnchorAnimation):
     pass
 
 
-class AnchorChanges(C, W.PsAnchorChanges):
+class AnchorChanges(W.PsAnchorChanges, C):
     pass
 
 
@@ -65,11 +65,11 @@ class AnimatedSprite(Item, W.PsAnimatedSprite):
     pass
 
 
-class AnimationController(C, W.PsAnimationController):
+class AnimationController(W.PsAnimationController, C):
     pass
 
 
-class Behavior(C, W.PsBehavior):
+class Behavior(W.PsBehavior, C):
     pass
 
 
@@ -77,7 +77,7 @@ class BorderImage(Item, W.PsBorderImage):
     pass
 
 
-class BorderImageMesh(C, W.PsBorderImageMesh):
+class BorderImageMesh(W.PsBorderImageMesh, C):
     pass
 
 
@@ -85,15 +85,15 @@ class Canvas(Item, W.PsCanvas):
     pass
 
 
-class CanvasGradient(C, W.PsCanvasGradient):
+class CanvasGradient(W.PsCanvasGradient, C):
     pass
 
 
-class CanvasImageData(C, W.PsCanvasImageData):
+class CanvasImageData(W.PsCanvasImageData, C):
     pass
 
 
-class CanvasPixelArray(C, W.PsCanvasPixelArray):
+class CanvasPixelArray(W.PsCanvasPixelArray, C):
     pass
 
 
@@ -109,19 +109,19 @@ class Column(Item, W.PsColumn):
     pass
 
 
-class Context2D(C, W.PsContext2D):
+class Context2D(W.PsContext2D, C):
     pass
 
 
-class DoubleValidator(C, W.PsDoubleValidator):
+class DoubleValidator(W.PsDoubleValidator, C):
     pass
 
 
-class Drag(C, W.PsDrag):
+class Drag(W.PsDrag, C):
     pass
 
 
-class DragEvent(C, W.PsDragEvent):
+class DragEvent(W.PsDragEvent, C):
     pass
 
 
@@ -133,7 +133,7 @@ class DropArea(Item, W.PsDropArea):
     pass
 
 
-class EnterKey(C, W.PsEnterKey):
+class EnterKey(W.PsEnterKey, C):
     pass
 
 
@@ -149,27 +149,27 @@ class FocusScope(Item, W.PsFocusScope):
     pass
 
 
-class FontLoader(C, W.PsFontLoader):
+class FontLoader(W.PsFontLoader, C):
     pass
 
 
-class FontMetrics(C, W.PsFontMetrics):
+class FontMetrics(W.PsFontMetrics, C):
     pass
 
 
-class GestureEvent(C, W.PsGestureEvent):
+class GestureEvent(W.PsGestureEvent, C):
     pass
 
 
-class Gradient(C, W.PsGradient):
+class Gradient(W.PsGradient, C):
     pass
 
 
-class GradientStop(C, W.PsGradientStop):
+class GradientStop(W.PsGradientStop, C):
     pass
 
 
-class GraphicsInfo(C, W.PsGraphicsInfo):
+class GraphicsInfo(W.PsGraphicsInfo, C):
     pass
 
 
@@ -177,7 +177,7 @@ class Grid(Item, W.PsGrid):
     pass
 
 
-class GridMesh(C, W.PsGridMesh):
+class GridMesh(W.PsGridMesh, C):
     pass
 
 
@@ -185,7 +185,7 @@ class GridView(Flickable, W.PsGridView):
     pass
 
 
-class HandlerPoint(C, W.PsHandlerPoint):
+class HandlerPoint(W.PsHandlerPoint, C):
     pass
 
 
@@ -193,7 +193,7 @@ class HoverHandler(SinglePointHandler, W.PsHoverHandler):
     pass
 
 
-class IntValidator(C, W.PsIntValidator):
+class IntValidator(W.PsIntValidator, C):
     pass
 
 
@@ -201,19 +201,19 @@ class ItemGrabResult(QtObject, W.PsItemGrabResult):
     pass
 
 
-class KeyEvent(C, W.PsKeyEvent):
+class KeyEvent(W.PsKeyEvent, C):
     pass
 
 
-class KeyNavigation(C, W.PsKeyNavigation):
+class KeyNavigation(W.PsKeyNavigation, C):
     pass
 
 
-class Keys(C, W.PsKeys):
+class Keys(W.PsKeys, C):
     pass
 
 
-class LayoutMirroring(C, W.PsLayoutMirroring):
+class LayoutMirroring(W.PsLayoutMirroring, C):
     pass
 
 
@@ -225,7 +225,7 @@ class Loader(Item, W.PsLoader):
     pass
 
 
-class Matrix4x4(C, W.PsMatrix4x4):
+class Matrix4x4(W.PsMatrix4x4, C):
     pass
 
 
@@ -233,7 +233,7 @@ class MouseArea(Item, W.PsMouseArea):
     pass
 
 
-class MouseEvent(C, W.PsMouseEvent):
+class MouseEvent(W.PsMouseEvent, C):
     pass
 
 
@@ -245,7 +245,7 @@ class OpacityAnimator(Animator, W.PsOpacityAnimator):
     pass
 
 
-class Palette(C, W.PsPalette):
+class Palette(W.PsPalette, C):
     pass
 
 
@@ -257,15 +257,15 @@ class ParentAnimation(Animation, W.PsParentAnimation):
     pass
 
 
-class ParentChange(C, W.PsParentChange):
+class ParentChange(W.PsParentChange, C):
     pass
 
 
-class Path(C, W.PsPath):
+class Path(W.PsPath, C):
     pass
 
 
-class PathAngleArc(C, W.PsPathAngleArc):
+class PathAngleArc(W.PsPathAngleArc, C):
     pass
 
 
@@ -273,59 +273,59 @@ class PathAnimation(Animation, W.PsPathAnimation):
     pass
 
 
-class PathArc(C, W.PsPathArc):
+class PathArc(W.PsPathArc, C):
     pass
 
 
-class PathAttribute(C, W.PsPathAttribute):
+class PathAttribute(W.PsPathAttribute, C):
     pass
 
 
-class PathCubic(C, W.PsPathCubic):
+class PathCubic(W.PsPathCubic, C):
     pass
 
 
-class PathCurve(C, W.PsPathCurve):
+class PathCurve(W.PsPathCurve, C):
     pass
 
 
-class PathElement(C, W.PsPathElement):
+class PathElement(W.PsPathElement, C):
     pass
 
 
-class PathInterpolator(C, W.PsPathInterpolator):
+class PathInterpolator(W.PsPathInterpolator, C):
     pass
 
 
-class PathLine(C, W.PsPathLine):
+class PathLine(W.PsPathLine, C):
     pass
 
 
-class PathMove(C, W.PsPathMove):
+class PathMove(W.PsPathMove, C):
     pass
 
 
-class PathMultiline(C, W.PsPathMultiline):
+class PathMultiline(W.PsPathMultiline, C):
     pass
 
 
-class PathPercent(C, W.PsPathPercent):
+class PathPercent(W.PsPathPercent, C):
     pass
 
 
-class PathPolyline(C, W.PsPathPolyline):
+class PathPolyline(W.PsPathPolyline, C):
     pass
 
 
-class PathQuad(C, W.PsPathQuad):
+class PathQuad(W.PsPathQuad, C):
     pass
 
 
-class PathSvg(C, W.PsPathSvg):
+class PathSvg(W.PsPathSvg, C):
     pass
 
 
-class PathText(C, W.PsPathText):
+class PathText(W.PsPathText, C):
     pass
 
 
@@ -341,7 +341,7 @@ class PinchArea(Item, W.PsPinchArea):
     pass
 
 
-class PinchEvent(C, W.PsPinchEvent):
+class PinchEvent(W.PsPinchEvent, C):
     pass
 
 
@@ -353,7 +353,7 @@ class PointHandler(SinglePointHandler, W.PsPointHandler):
     pass
 
 
-class Positioner(C, W.PsPositioner):
+class Positioner(W.PsPositioner, C):
     pass
 
 
@@ -361,7 +361,7 @@ class PropertyAction(Animation, W.PsPropertyAction):
     pass
 
 
-class PropertyChanges(C, W.PsPropertyChanges):
+class PropertyChanges(W.PsPropertyChanges, C):
     pass
 
 
@@ -369,7 +369,7 @@ class Rectangle(Item, W.PsRectangle):
     pass
 
 
-class RegularExpressionValidator(C, W.PsRegularExpressionValidator):
+class RegularExpressionValidator(W.PsRegularExpressionValidator, C):
     pass
 
 
@@ -377,7 +377,7 @@ class Repeater(Item, W.PsRepeater):
     pass
 
 
-class Rotation(C, W.PsRotation):
+class Rotation(W.PsRotation, C):
     pass
 
 
@@ -393,7 +393,7 @@ class Row(Item, W.PsRow):
     pass
 
 
-class Scale(C, W.PsScale):
+class Scale(W.PsScale, C):
     pass
 
 
@@ -417,7 +417,7 @@ class ShaderEffectSource(Item, W.PsShaderEffectSource):
     pass
 
 
-class Shortcut(C, W.PsShortcut):
+class Shortcut(W.PsShortcut, C):
     pass
 
 
@@ -429,7 +429,7 @@ class SpringAnimation(NumberAnimation, W.PsSpringAnimation):
     pass
 
 
-class Sprite(C, W.PsSprite):
+class Sprite(W.PsSprite, C):
     pass
 
 
@@ -437,19 +437,19 @@ class SpriteSequence(Item, W.PsSpriteSequence):
     pass
 
 
-class State(C, W.PsState):
+class State(W.PsState, C):
     pass
 
 
-class StateChangeScript(C, W.PsStateChangeScript):
+class StateChangeScript(W.PsStateChangeScript, C):
     pass
 
 
-class StateGroup(C, W.PsStateGroup):
+class StateGroup(W.PsStateGroup, C):
     pass
 
 
-class SystemPalette(C, W.PsSystemPalette):
+class SystemPalette(W.PsSystemPalette, C):
     pass
 
 
@@ -473,23 +473,23 @@ class TextInput(Item, W.PsTextInput):
     pass
 
 
-class TextMetrics(C, W.PsTextMetrics):
+class TextMetrics(W.PsTextMetrics, C):
     pass
 
 
-class TouchPoint(C, W.PsTouchPoint):
+class TouchPoint(W.PsTouchPoint, C):
     pass
 
 
-class Transform(C, W.PsTransform):
+class Transform(W.PsTransform, C):
     pass
 
 
-class Transition(C, W.PsTransition):
+class Transition(W.PsTransition, C):
     pass
 
 
-class Translate(C, W.PsTranslate):
+class Translate(W.PsTranslate, C):
     pass
 
 
@@ -501,11 +501,11 @@ class Vector3dAnimation(PropertyAnimation, W.PsVector3dAnimation):
     pass
 
 
-class ViewTransition(C, W.PsViewTransition):
+class ViewTransition(W.PsViewTransition, C):
     pass
 
 
-class WheelEvent(C, W.PsWheelEvent):
+class WheelEvent(W.PsWheelEvent, C):
     pass
 
 
@@ -513,8 +513,13 @@ class WheelHandler(SinglePointHandler, W.PsWheelHandler):
     pass
 
 
-class Window(C, W.PsWindow):
-    pass
+class Window(W.PsWindow):
+    
+    def __enter__(self):
+        return self
+        
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        pass
 
 
 class XAnimator(Animator, W.PsXAnimator):
