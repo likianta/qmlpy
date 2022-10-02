@@ -1,22 +1,22 @@
 """
 see `../__init__.py`.
 """
-qml_namespace = set()
+qml_namespace = set()  # type: set[str]
 
 if __name__ == '__main__':  # this is never reachable. just for type hint.
-    from qmlpy.widgets.base import Component as _Component
-    from qmlpy.widgets import widget_sheet as _wsheet
-    from qmlpy import properties as _properties
+    from qmlpy.core import Component as _Component
+    from qmlpy.widgets import widget_props as _wprops
+    from qmlpy import property as _property
     C = _Component
-    P = _properties
-    W = _wsheet
+    P = _property
+    W = _wprops
 else:
     C = ...
     P = ...
     W = ...
 
 
-def setup(**kwargs):
+def setup(**kwargs) -> None:
     global C, P, W
     C = kwargs['component']
     P = kwargs['properties']

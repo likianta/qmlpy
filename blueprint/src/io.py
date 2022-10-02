@@ -10,7 +10,7 @@ __all__ = ['T', 'path']
 class path:  # noqa
     proj_root = relpath('../..')
     blueprint = f'{proj_root}/blueprint'
-    resources = f'{blueprint}/blueprint/resources'
+    resources = f'{proj_root}/blueprint/resources'
     qt_source = None  # TODO
     #   see `../readme.md > requirements > qt documents`.
     

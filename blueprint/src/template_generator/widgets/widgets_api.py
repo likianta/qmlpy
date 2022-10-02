@@ -7,10 +7,10 @@ from textwrap import dedent
 from lk_utils import dumps
 from lk_utils import loads
 
-from .generate_widget_sheet import T as T1
-from .generate_widget_sheet import _sort_formatted_list
-from ..io import T as T0
-from ..io import path
+from .widget_oriented_props import T as T1
+from .widget_oriented_props import _sort_formatted_list
+from ...io import T as T0
+from ...io import path
 
 
 class T(T0, T1):
@@ -74,12 +74,12 @@ def _create_dirs(widgets_dir, packages):
             mkdir(d)
 
 
-def _generate_base(file_i: str, file_o: str):
+def _generate_base(file_i: str, file_o: str) -> None:
     # there is no placeholders in file_i. we just copy file_i to file_o.
     shutil.copyfile(file_i, file_o)
 
 
-def _generate_init(tmpl_i: str, file_o: str, package):
+def _generate_init(tmpl_i: str, file_o: str, package: str) -> None:
     # tmpl: 'template'
     # kwargs: {'package': <str>}
     dumps(
@@ -88,7 +88,7 @@ def _generate_init(tmpl_i: str, file_o: str, package):
     )
 
 
-def _generate_list(tmpl_i: str, file_o: str, data: T.WidgetData):
+def _generate_list(tmpl_i: str, file_o: str, data: T.WidgetData) -> None:
     # tmpl: 'template'
     # kwargs: {
     #   'data': {  # type: TWidgetData

@@ -52,5 +52,16 @@ def generate_properties_api(type_: str):
         )
 
 
+@cli.cmd()
+def generate_widget_props_api():
+    template_generator.widgets.generate_all_widget_props()
+
+
+@cli.cmd()
+def generate_widgets_api():
+    # template_generator.widgets.generate_all_widget_props()
+    template_generator.widgets.generate_widgets_api()
+
+
 if __name__ == '__main__':
     cli.run()
