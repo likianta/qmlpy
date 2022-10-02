@@ -1,13 +1,17 @@
-import sys
-sys.path.insert(0, '..')
+from __future__ import annotations
+
+if True:
+    import sys
+    sys.path.insert(0, '..')
 
 from functools import partial
 
-from argsense import cli
 import lk_logger  # noqa
+from argsense import cli
 
-from blueprint.src import qml_modules_indexing, template_generator
-from blueprint.src import io
+from blueprint.src.io import path
+from blueprint.src import qml_modules_indexing
+from blueprint.src import template_generator
 
 
 @cli.cmd()
@@ -19,28 +23,33 @@ def indexing_qml_modules(steps='1234'):
             from '1', '2', '3', etc. to '134', '1234', etc.
             be noticed it is order sensitive. ('1234' is different from '4321')
     """
+    # noinspection PyArgumentList
     steps_to_exec = {
-        '1': partial(qml_modules_indexing.step1, *io.no1),
-        '2': partial(qml_modules_indexing.step2, *io.no2),
-        '3': partial(qml_modules_indexing.step3, *io.no3, io.qtdoc_dir),
-        '4': partial(qml_modules_indexing.step4, *io.no4),
+        '1': partial(qml_modules_indexing.step1, *path.step1),
+        '2': partial(qml_modules_indexing.step2, *path.step2),
+        '3': partial(qml_modules_indexing.step3, *path.step3),
+        '4': partial(qml_modules_indexing.step4, *path.step4),
     }
     for k in steps:
         steps_to_exec[k]()
 
 
 @cli.cmd()
-def list_all_group_properties():
+def generate_properties_api(type_: str):
     """
-    find all possible "group-type" properties.
-    the list will be saved in `~/blueprint/resources/other/group_props.json`.
-    it is a reference for you to write your own template. -- see also -
-    `qmlpy.property.group.api`.
+    args:
+        type_: 'basic' or 'group'
     """
-    template_generator.list_all_group_properties.main(
-        strip_unrecognized_properties=False,
-        use_snake_case=True,
-    )
+    if type_ == 'basic':
+        template_generator.properties.list_basic_types(
+            file_i=path.json3, file_o=path.prop1
+        )
+    else:
+        template_generator.properties.list_group_types(
+            file_i=path.json3, file_o=path.prop2,
+            strip_unrecognized_properties=False,
+            analyse=True,
+        )
 
 
 if __name__ == '__main__':

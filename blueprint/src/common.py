@@ -1,7 +1,4 @@
 import re
-from collections import defaultdict
-
-from blueprint.src.typehint import *
 
 
 def camel_2_snake_case(name: str):
@@ -17,9 +14,9 @@ def camel_2_snake_case(name: str):
     """
     name = (
         name  # 针对一些特殊转换做预处理
-            .replace('QtQuick', 'qtquick')
-            .replace('QtQml', 'qtqml')
-            .replace('Qt.labs', 'qt_labs')
+        .replace('QtQuick', 'qtquick')
+        .replace('QtQml', 'qtqml')
+        .replace('Qt.labs', 'qt_labs')
     )
     name = re.sub(r'(?<!\d)([A-Z][A-Z]+)(?=[A-Z][a-z]|$)', r'_\1_', name)
     ''' 将单词中的连续全大写单词 "抽出来". examples:
@@ -63,44 +60,3 @@ def camel_2_snake_case(name: str):
             10. 'useOpen_GL_' -> 'use_open_gl'
     '''
     return name
-
-
-def sort_formatted_list(widgets_dict: TWidgetSheetData2,
-                        exclusions: tuple = None) -> Iterator[TFormatted]:
-    # exclusions: suggest passing the base class, and all namespace came from
-    #   external modules.
-    
-    if exclusions is None:
-        exclusions = ()
-    
-    # counter
-    who_is_most_required = defaultdict(int)  # {parent_name: count, ...}
-    
-    def _loop(widget_name):
-        if widget_name not in widgets_dict:
-            print(':v3', 'this name is not in __list__', widget_name)
-            return
-        
-        parent_name = widgets_dict[widget_name][0]
-        if parent_name in exclusions:
-            return
-        
-        who_is_most_required[parent_name] += 1
-        _loop(parent_name)
-    
-    for widget_name in widgets_dict:
-        _loop(widget_name)
-
-    # --------------------------------------------------------------------------
-    
-    print(':l', "who's the most required", sorted(
-        [(k, v) for k, v in who_is_most_required.items()],
-        key=lambda k_v: k_v[1], reverse=True
-    ))
-    
-    for widget_name in sorted(
-            widgets_dict.keys(),
-            key=lambda widget_name: who_is_most_required[widget_name],
-            reverse=True
-    ):
-        yield widgets_dict[widget_name][1]
