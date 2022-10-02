@@ -11,7 +11,8 @@ class path:  # noqa
     proj_root = relpath('../..')
     blueprint = f'{proj_root}/blueprint'
     resources = f'{blueprint}/blueprint/resources'
-    qt_source = None  # TODO: set your own qt source path
+    qt_source = None  # TODO
+    #   see `../readme.md > requirements > qt documents`.
     
     html1 = f'{resources}/qtdoc/1_all_qml_modules.html'
     html2 = f'{resources}/qtdoc/2_all_qml_types.html'
@@ -65,10 +66,14 @@ class T:
             e.g. 'qtcharts/qml-qtcharts-abstractaxis.html'.
     '''
     
-    JsonData3 = t.Dict[str, t.Dict[str, t.TypedDict('WidgetInfo', {
-        'parent': t.List[str],
-        'props' : t.Dict[str, str],
-    })]]
+    JsonData3 = t.Dict[str, t.Dict[
+        str, JsonData3WidgetInfo := t.TypedDict(
+            'JsonData3WidgetInfo', {
+                'parent': t.List[str],
+                'props' : t.Dict[str, str],
+            }
+        )
+    ]]
     ''' e.g. {
             'QtQuick': {
                 'Rectangle': {

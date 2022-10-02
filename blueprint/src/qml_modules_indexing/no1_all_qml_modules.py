@@ -2,49 +2,19 @@ from bs4 import BeautifulSoup
 from lk_utils import dumps
 from lk_utils import loads
 
+from ..io import T
+
 
 def main(file_i: str, file_o: str) -> None:
     """
-    args:
-        file_i:
-        file_o:
-            格式: {
-                'module_group': {raw_module_group: formatted_name, ...},
-                    raw_module_group: see `Notes:no1`
-                    formatted_name: see `Notes:no3`
-                'module': {raw_module: formatted_name, ...}
-                    raw_module: see `Notes:no2`
-            }
-            示例: {
-                'module_group': {
-                    'qtquick': 'QtQuick',
-                    'qtquickcontrols': 'QtQuickControls',
-                    ...
-                },
-                'module': {
-                    'qtquick-windows': 'QtQuick.Windows',
-                    ...
-                },
-            }
-            注意:
-                1. `raw_module_group` 的键是没有空格或连接符的, 只有纯小写字母和
-                    数字组成
-                2. `raw_module` 的键是由纯小写字母和连接符组成 (例如 'qtquick
-                    -windows')
-                3. `formatted_name` 是由首字母大写的单词和点号组成 (例如
-                    'QtQuick.Windows')
-                    1. 但是有一个特例: 'QtQuick.labs.xxx' 从 'lab' 开始全部都是
-                        小写 (例如 'Qt.labs.folderlistmodel')
-                4. 该生成文件可被直接用于 `no2_all_qml_types.py:_correct
-                    _module_lettercase`
+    file_i and file_o are suggested using from `..io.path.step1`.
     """
-    file_i = file_i.replace('\\', '/')
     soup = BeautifulSoup(loads(file_i), 'html.parser')
     container = soup.find('table', 'annotated')
     
-    writer = {
-        'module_group': {},  # value: {raw_module_group: formatted_name, ...}
-        'module'      : {},  # value: {raw_module: formatted_name, ...}
+    writer: T.JsonData1 = {
+        'module_group': {},
+        'module'      : {},
     }
     
     extra_words = ['Qt', 'Quick', 'Qml', 'Win', 'Labs', '5Compat']
@@ -165,8 +135,3 @@ def _correct_module_lettercase(module: str, words: list) -> str:
         # -> 'QtQuick.labs.calendar'
     
     return module
-
-
-if __name__ == '__main__':
-    from blueprint.src import io
-    main(*io.no1)

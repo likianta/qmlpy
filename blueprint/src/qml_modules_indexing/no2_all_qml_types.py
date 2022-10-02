@@ -5,32 +5,13 @@ from bs4 import BeautifulSoup
 from lk_utils import dumps
 from lk_utils import loads
 
-from blueprint.src import io
+from ..io import T
+from ..io import path
 
 
-def main(file_i, file_o):
+def main(file_i: str, file_o: str) -> None:
     """
-    
-    Args:
-        file_i:
-        file_o:
-            {module_group: {module: {type_name: path}, ...}, ...}
-            #   {模组: {模块: {类型: 路径}}}
-            e.g. {
-                'qtquick': {
-                    'qtquick': {
-                        'Rectangle': 'qtquick/qml-qtquick-rectangle.html',
-                        'Text': 'qtquick/qml-qtquick-text.html',
-                        ...
-                    },
-                    'qtquick-window': {
-                        'Window': 'qtquick/qml-qtquick-window-window.html',
-                        ...
-                    },
-                    ...
-                },
-                ...
-            }
+    file_i and file_o are suggested using from `..io.path.step2`.
     
     思路:
         1. 我们安装了 Qt 主程序以后, 在软件安装目录下的 'Docs/Qt-{version}' 中有
@@ -38,12 +19,12 @@ def main(file_i, file_o):
         2. 其中 "~/Docs/Qt-{version}/qtdoc/qmltypes.html" 列出了全部的 qml types
         3. 我们对 "qmltypes.html" 用 BeautifulSoup 解析, 从中获取每个 qml types
            和它的链接, 最终我们将得到这些信息: 模组, 模块, 类型, 路径等
-        4. 将这些信息保存到本项目下的 "~/qmltypes.json" 文件中
+        4. 将这些信息保存到 `file_on` 文件中
     """
     soup = BeautifulSoup(loads(file_i), 'html.parser')
     
     # https://www.itranslater.com/qa/details/2325827141935563776
-    data = defaultdict(lambda: defaultdict(dict))
+    data: T.JsonData2 = defaultdict(lambda: defaultdict(dict))
     #   {module_group: {module: {type_name: filename, ...}, ...}, ...}
     
     container = soup.find('div', 'flowListDiv')
@@ -103,7 +84,7 @@ def main(file_i, file_o):
 
 # ------------------------------------------------------------------------------
 
-qml_modules = loads(io.json_1)
+qml_modules = loads(path.json1)
 qml_modules = {**qml_modules['module_group'], **qml_modules['module']}
 qml_modules.update({  # 扩充
     ''                        : '',
@@ -113,7 +94,7 @@ qml_modules.update({  # 扩充
 })
 
 
-def correct_module_lettercase(module: str):
+def correct_module_lettercase(module: str) -> str:
     """ 修正模块的大小写.
     
     示例:
@@ -145,8 +126,3 @@ def correct_module_lettercase(module: str):
     """
     global qml_modules
     return qml_modules[module]
-
-
-if __name__ == '__main__':
-    from blueprint.src import io
-    main(*io.no2)

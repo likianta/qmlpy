@@ -1,3 +1,4 @@
+import typing as t
 from collections import defaultdict
 from os.path import exists
 
@@ -5,28 +6,28 @@ from bs4 import BeautifulSoup
 from lk_utils import dumps
 from lk_utils import loads
 
-from blueprint.src.qml_modules_indexing.no2_all_qml_types import \
-    correct_module_lettercase
-from blueprint.src.typehint import TJson3Data
+from .no2_all_qml_types import correct_module_lettercase
+from ..io import T
+from ..io import path
 
 
-def main(file_i, file_o, qtdoc_dir: str):
+def main(file_i: str, file_o: str,
+         qtdoc_dir: str = path.qt_source) -> None:
     """
-    Args:
-        file_i:
-        file_o:
-        qtdoc_dir: 请传入您的 Qt 安装程序的 Docs 目录. 例如: 'D:/Programs/Qt
-            /Docs/Qt-5.14.2' (该路径须确实存在)
+    file_i and file_o are suggested using from `..io.path.step3`.
     """
-    reader = loads(file_i)  # type: dict
-    # noinspection PyTypeChecker
-    writer = defaultdict(lambda: defaultdict(lambda: {
-        'parent': (),
-        'props' : {},
-    }))  # type: TJson3Data
+    assert qtdoc_dir and exists(qtdoc_dir), (
+        'The Qt Docs directory is not specified '
+        'or not existed!', qtdoc_dir
+    )
     
-    assert exists(qtdoc_dir), (
-        'The Qt Docs directory doesn\'t exist!', qtdoc_dir
+    reader: T.JsonData2 = loads(file_i)
+    # noinspection PyTypeChecker
+    writer: T.JsonData3 = defaultdict(
+        lambda: defaultdict(lambda: {
+            'parent': (),
+            'props' : {},
+        })
     )
     
     for module, qmltype, file_i in _get_files(reader, qtdoc_dir):
@@ -43,13 +44,14 @@ def main(file_i, file_o, qtdoc_dir: str):
             print(':v4l', module, qmltype, file_i)
             raise e
         
+        # noinspection PyTypedDict
         writer[module][qmltype]['parent'] = (parent_package, parent_name)
         writer[module][qmltype]['props'].update(props)
     
     dumps(writer, file_o)
 
 
-def _parse_file(file):
+def _parse_file(file: str) -> t.Tuple[str, str, dict]:
     soup = BeautifulSoup(loads(file), 'html.parser')
     # 下面以 '{qtdoc_dir}/qtquick/qml-qtquick-rectangle.html' 为例分析 (请在
     # 浏览器中查看此 html, 打开开发者工具.)
@@ -159,13 +161,8 @@ def _parse_file(file):
     return parent_package, parent_name, props
 
 
-def _get_files(data: dict, dir_i: str):
+def _get_files(data: dict, dir_i: str) -> t.Iterator[t.Tuple[str, str, str]]:
     for module_group, node1 in data.items():
         for module, node2 in node1.items():
             for qmltype, relpath in node2.items():
                 yield module, qmltype, dir_i + '/' + relpath
-
-
-if __name__ == '__main__':
-    from blueprint.src import io
-    main(*io.no3, io.qtdoc_dir)
