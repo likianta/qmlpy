@@ -44,3 +44,4 @@ class PySide(QObject, PyRegister):
 
 
 pyside = PySide()
+pyslot = pyside.slot

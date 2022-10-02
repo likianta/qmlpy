@@ -63,40 +63,40 @@ class PyRegister:
             raise Exception('Method already registered', method_name)
         self._pyclass_holder[class_name][method_name] = (name, narg)
     
-    # def register(self, obj, name=''):
-    #     """ Registering Python functions/methods to `.pyside.PySide.<namespace>`.
-    #         Then it can be used in QML file via `PySide.call(<name>, <qml_args>)`.
-    #
-    #     Args:
-    #         obj: Union[Callable, object]
-    #             Function, method or something callable. Or class instance.
-    #             Use `type(obj).__name__` to see its value. If its value is one
-    #             of the following:
-    #                 'function'
-    #                 'method'
-    #                 'builtin_function_or_method'
-    #             It means `obj` is callable; otherwise it is a class instance.
-    #         name: A custom name for `obj`, if empty, use `obj.__name__` as
-    #             default.
-    #
-    #     References:
-    #         https://medium.com/%40mgarod/dynamically-add-a-method-to-a-class-in
-    #             -python-c49204b85bd6+&cd=3&hl=zh-CN&ct=clnk&gl=sg
-    #         https://blog.csdn.net/Wu_Victor/article/details/84334814
-    #     """
-    #     name = name or obj.__name__
-    #     if (t := type(obj).__name__) in ('function', 'method'):
-    #         narg = self._get_number_of_args(obj)
-    #         self._register(obj, name, narg)
-    #     elif t == 'builtin_function_or_method':
-    #         self._register(obj, name, -1)
-    #     else:
-    #         self._register_instance(obj)
-    #     return name
-    
-    def register(self, name='', arg0: T.Arg0 = ''):
+    def register(self, obj, name=''):
+        """ Registering Python functions/methods to `.pyside.PySide.<namespace>`.
+            Then it can be used in QML file via `PySide.call(<name>, <qml_args>)`.
+
+        Args:
+            obj: Union[Callable, object]
+                Function, method or something callable. Or class instance.
+                Use `type(obj).__name__` to see its value. If its value is one
+                of the following:
+                    'function'
+                    'method'
+                    'builtin_function_or_method'
+                It means `obj` is callable; otherwise it is a class instance.
+            name: A custom name for `obj`, if empty, use `obj.__name__` as
+                default.
+
+        References:
+            https://medium.com/%40mgarod/dynamically-add-a-method-to-a-class-in
+                -python-c49204b85bd6+&cd=3&hl=zh-CN&ct=clnk&gl=sg
+            https://blog.csdn.net/Wu_Victor/article/details/84334814
         """
-        a decorator registering python functions/methods to self's namespade.
+        name = name or obj.__name__
+        if (t := type(obj).__name__) in ('function', 'method'):
+            narg = self._get_number_of_args(obj)
+            self._register(obj, name, narg)
+        elif t == 'builtin_function_or_method':
+            self._register(obj, name, -1)
+        else:
+            self._register_instance(obj)
+        return name
+    
+    def slot(self, name='', arg0: T.Arg0 = ''):
+        """
+        a decorator registering python functions/methods to self's namespace.
         it can be laterly used in qml runtime via:
             `pyside.call(<str ame>, <list qml_args>)`.
         (see also `./pyside.py`)
