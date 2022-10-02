@@ -66,13 +66,11 @@ def main(file_o: str = path.proj_root + '/qmlpy/widgets/widget_props.py'):
                 widget_tmpl.format(
                     WIDGET=widget_name,
                     PARENT=parent_name,
-                    PROPS=indent(
-                        '\n'.join((
-                            f'{k}: {v}'
-                            for k, v in _generate_props(raw_props)
-                        )),
-                        '    '
-                    ).lstrip(),
+                    PROPS=indent('\n'.join(
+                        (f'{k} = {v}' for k, v in _generate_props(
+                            raw_props, cast_safe=True
+                        ))
+                    ), '    ').lstrip(),
                 )
             )
         else:
@@ -100,6 +98,7 @@ def main(file_o: str = path.proj_root + '/qmlpy/widgets/widget_props.py'):
         the prefix 'P' means 'Property' derives from `qmlpy.property.core.prop`.
         """
         from typing import cast
+        
         # see `qmlpy.widgets.namespace.__qml_namespace__`
         from __qml_namespace__ import P
 
@@ -140,7 +139,9 @@ def _merge_multi_parent_case(data: T.WidgetSheetData1) \
             yield widget_name, BASE_CLASS, all_props
 
 
-def _generate_props(props: t.Dict[str, str]) -> t.Iterator[t.Tuple[str, str]]:
+def _generate_props(
+        props: t.Dict[str, str], cast_safe: bool
+) -> t.Iterator[t.Tuple[str, str]]:
     basic_qml_types = {
         # summary:
         #   keys are qml basic types. values are `qmlpy.properties`.
@@ -245,6 +246,13 @@ def _generate_props(props: t.Dict[str, str]) -> t.Iterator[t.Tuple[str, str]]:
                 prop_type = 'P.Property'
                 # prop_type = 'cast("{}", P.Property)'.format(prop_type)
                 _temp_collector['unknown_props'].add((prop_name, prop_type))
+        
+        if cast_safe:
+            if 'cast(' in prop_type:
+                prop_type = re.sub(r', (.*?)\)', r', "\1")', prop_type)
+                #  e.g. 'cast(str, String)' -> 'cast(str, "String")'
+            else:
+                prop_type = '"{}"'.format(prop_type)
         
         yield prop_name, prop_type
 
