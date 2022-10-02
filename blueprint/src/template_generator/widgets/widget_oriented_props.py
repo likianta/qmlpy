@@ -18,14 +18,14 @@ class T(T0):
     WidgetName = str  # e.g. 'Item', 'Rectangle', 'MouseArea', ...
     ParentName = WidgetName
     
-    Formatted = str
+    TemplateCode = str
     
     _PropName = str
     _PropType = str
     Props = t.Dict[_PropName, _PropType]
     
     WidgetSheetData1 = t.Dict[WidgetName, t.Dict[ParentName, Props]]
-    WidgetSheetData2 = t.Dict[WidgetName, t.Tuple[ParentName, Formatted]]
+    WidgetSheetData2 = t.Dict[WidgetName, t.Tuple[ParentName, TemplateCode]]
 
 
 def main(file_o: str = path.proj_root + '/qmlpy/widgets/widget_props.py'):
@@ -260,7 +260,7 @@ def _generate_props(
 def _sort_formatted_list(
         widgets_dict: T.WidgetSheetData2,
         exclusions: tuple = ()
-) -> T.Formatted:
+) -> T.TemplateCode:
     # counter
     who_is_most_required = defaultdict(int)  # {parent_name: count, ...}
     

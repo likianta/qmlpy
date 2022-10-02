@@ -22,11 +22,11 @@ class path:  # noqa
     json3 = f'{resources}/qtdoc_compiled/3_all_qml_widgets.json'
     json4 = f'{resources}/qtdoc_compiled/4_all_qmlpy_widgets.json'
     
-    temp1 = f'{resources}/widgets_template/__base__.py'
-    temp2 = f'{resources}/widgets_template/__init__.py'
-    temp3 = f'{resources}/widgets_template/__list__.py'
+    temp1 = f'{resources}/widgets_template/__base__.txt'
+    temp2 = f'{resources}/widgets_template/__init__.txt'
+    temp3 = f'{resources}/widgets_template/__list__.txt'
     temp4 = f'{resources}/widgets_template/readme.md'
-    temp5 = f'{resources}/widgets_template/api_init.py'
+    temp5 = f'{resources}/widgets_template/api_init.txt'
     
     prop1 = f'{resources}/properties/basic_types.json'
     prop2 = f'{resources}/properties/group_types.json'
@@ -103,7 +103,10 @@ class T:
             },
             'qtquick': {
                 'Rectangle': {
-                    'parent': 'Item',
+                    'parent': 'Item',  # usually 'Item' can be found in the
+                    #   same module, but sometimes it may be in another module.
+                    #   see `./template_generator/widgets/widgets_api.py > def
+                    #   _fix_missing_parents()`.
                     'props': {
                         'antialiasing': 'bool',
                         'border': 'group', ...

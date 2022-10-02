@@ -1,5 +1,5 @@
-from __qml_namespace__ import C
-from __qml_namespace__ import P
-from __qml_namespace__ import W
+from __qml_namespace__ import C  # noqa
+from __qml_namespace__ import P  # noqa
+from __qml_namespace__ import W  # noqa
 
-__all__ = ['C', 'P', 'W']
+from ..__list__ import Gradient, Item, Path  # noqa

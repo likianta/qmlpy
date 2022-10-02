@@ -1,12 +1,14 @@
+from __future__ import annotations
+
 import typing as t
 from secrets import token_hex
 from textwrap import dedent
 from textwrap import indent
 
+from .declarative import Id
+from .declarative import ctx_mgr
+from .declarative import id_mgr
 from .pyside import pyside
-from ..declarative import Id
-from ..declarative import ctx_mgr
-from ..declarative import id_mgr
 
 PropertyGroup = ...
 
@@ -21,7 +23,7 @@ class T:
 class Component:
     id: Id
     
-    def __enter__(self) -> T.Component:
+    def __enter__(self) -> t.Self:
         self.id = ctx_mgr.enter(self)
         return self
     

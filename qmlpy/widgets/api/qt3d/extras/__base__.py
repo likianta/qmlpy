@@ -1,5 +1,6 @@
-from __qml_namespace__ import C
-from __qml_namespace__ import P
-from __qml_namespace__ import W
+from __qml_namespace__ import C  # noqa
+from __qml_namespace__ import P  # noqa
+from __qml_namespace__ import W  # noqa
 
-__all__ = ['C', 'P', 'W']
+from ...qtquick3d.__list__ import Material  # noqa
+from ..core.__list__ import Entity  # noqa
