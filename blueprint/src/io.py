@@ -4,6 +4,8 @@ import typing as t
 
 from lk_utils import relpath
 
+__all__ = ['T', 'path']
+
 
 class path:  # noqa
     proj_root = relpath('../..')
@@ -11,38 +13,38 @@ class path:  # noqa
     resources = f'{blueprint}/blueprint/resources'
     qt_source = None  # TODO: set your own qt source path
     
-    html_1 = f'{resources}/qtdoc/1_all_qml_modules.html'
-    html_2 = f'{resources}/qtdoc/2_all_qml_types.html'
+    html1 = f'{resources}/qtdoc/1_all_qml_modules.html'
+    html2 = f'{resources}/qtdoc/2_all_qml_types.html'
     
-    json_1 = f'{resources}/qtdoc_compiled/1_all_qml_modules.json'
-    json_2 = f'{resources}/qtdoc_compiled/2_all_qml_types.json'
-    json_3 = f'{resources}/qtdoc_compiled/3_all_qml_widgets.json'
-    json_4 = f'{resources}/qtdoc_compiled/4_all_qmlpy_widgets.json'
+    json1 = f'{resources}/qtdoc_compiled/1_all_qml_modules.json'
+    json2 = f'{resources}/qtdoc_compiled/2_all_qml_types.json'
+    json3 = f'{resources}/qtdoc_compiled/3_all_qml_widgets.json'
+    json4 = f'{resources}/qtdoc_compiled/4_all_qmlpy_widgets.json'
     
-    temp_1 = f'{resources}/widgets_template/__base__.py'
-    temp_2 = f'{resources}/widgets_template/__init__.py'
-    temp_3 = f'{resources}/widgets_template/__list__.py'
-    temp_4 = f'{resources}/widgets_template/readme.md'
-    temp_5 = f'{resources}/widgets_template/api_init.py'
+    temp1 = f'{resources}/widgets_template/__base__.py'
+    temp2 = f'{resources}/widgets_template/__init__.py'
+    temp3 = f'{resources}/widgets_template/__list__.py'
+    temp4 = f'{resources}/widgets_template/readme.md'
+    temp5 = f'{resources}/widgets_template/api_init.py'
     
-    prop_1 = f'{resources}/properties/basic_types.json'
-    prop_2 = f'{resources}/properties/group_types.json'
-    
-    @property
-    def step_1(self) -> tuple[str, str]:
-        return self.html_1, self.json_1
+    prop1 = f'{resources}/properties/basic_types.json'
+    prop2 = f'{resources}/properties/group_types.json'
     
     @property
-    def step_2(self) -> tuple[str, str]:
-        return self.html_2, self.json_2
+    def step1(self) -> tuple[str, str]:
+        return self.html1, self.json1
     
     @property
-    def step_3(self) -> tuple[str, str]:
-        return self.json_2, self.json_3
+    def step2(self) -> tuple[str, str]:
+        return self.html2, self.json2
     
     @property
-    def step_4(self) -> tuple[str, str]:
-        return self.json_3, self.json_4
+    def step3(self) -> tuple[str, str]:
+        return self.json2, self.json3
+    
+    @property
+    def step4(self) -> tuple[str, str]:
+        return self.json3, self.json4
 
 
 class T:
