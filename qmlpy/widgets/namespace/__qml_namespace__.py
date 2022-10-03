@@ -1,17 +1,27 @@
 """
 see `../__init__.py`.
 """
-from .typing_stub import Component
-from .typing_stub import props
-from .typing_stub import wprops
-
 __all__ = ['C', 'P', 'W', 'qml_namespace', 'setup']
+
+
+class T:  # a fake typehint class, cheat with IDE type checking.
+    if __name__ == '__main__':
+        from qmlpy.component import Component
+        from qmlpy.widgets import widget_props
+        
+        class PropsVendor:
+            from qmlpy.properties.core import PropSheet
+            PropSheet = PropSheet
+    
+    def __class_getitem__(cls, item):
+        return None
+
 
 qml_namespace = set()  # type: set[str]
 
-C = Component
-P = props
-W = wprops
+C = T.Component
+P = T.PropsVendor
+W = T.widget_props
 
 """ C: class Component.
     P: properties package. the only usage is `P.PropSheet`. see also
