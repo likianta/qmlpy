@@ -53,12 +53,26 @@ def generate_properties_api(type_: str):
 
 
 @cli.cmd()
-def generate_widget_props_api():
-    template_generator.widgets.generate_all_widget_props()
+def generate_widget_props_api(cast_safe=True):
+    """
+    this generates (or overwrites):
+        `~/qmlpy/widgets/widget_props.py`
+    """
+    template_generator.widgets.generate_all_widget_props(
+        cast_safe=cast_safe,
+    )
 
 
 @cli.cmd()
 def generate_widgets_api():
+    """
+    this generates:
+        `~/qmlpy/widgets/api/**`
+        
+    notice: for safe consideration, you should [red]manually[/] remove the -
+    target api dir before executing this command. otherwise, this command will -
+    be force exited at start.
+    """
     # template_generator.widgets.generate_all_widget_props()
     template_generator.widgets.generate_widgets_api()
 
