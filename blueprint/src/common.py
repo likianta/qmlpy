@@ -60,3 +60,8 @@ def camel_2_snake_case(name: str):
             10. 'useOpen_GL_' -> 'use_open_gl'
     '''
     return name
+
+
+def pascal_to_upper_case(name: str) -> str:
+    pattern = re.compile(r'([A-Z][a-z]+)')
+    return '_'.join(pattern.findall(name)).upper()

@@ -61,7 +61,7 @@ class PsItem(PsQtObject):
 class PsNode(P.PropSheet):
     child_nodes = cast(list, "prop:List")
     data = cast(list, "prop:List")
-    transform_space = cast(int, "prop:Enumeration")
+    TransformSpace = cast(int, "prop:Enumeration")
     euler_rotation = "prop:Vector3D"
     forward = "prop:Vector3D"
     opacity = cast(float, "prop:Real")
@@ -460,7 +460,7 @@ class PsCamera(P.PropSheet):
     components = cast(list, "prop:List")
     child_nodes = cast(list, "prop:List")
     data = cast(list, "prop:List")
-    transform_space = cast(int, "prop:Enumeration")
+    TransformSpace = cast(int, "prop:Enumeration")
     euler_rotation = "prop:Vector3D"
     forward = "prop:Vector3D"
     opacity = cast(float, "prop:Real")
@@ -702,8 +702,8 @@ class PsDirection3D(PsQtObject):
 
 
 class PsParticle3D(PsObject3D):
-    align_mode = cast(int, "prop:Enumeration")
-    fade_type = cast(int, "prop:Enumeration")
+    AlignMode = cast(int, "prop:Enumeration")
+    FadeType = cast(int, "prop:Enumeration")
     align_mode = "prop:Property"
     align_target_position = "prop:Vector3D"
     color = cast(str, "prop:Color")
@@ -752,7 +752,7 @@ class PsGeometry(P.PropSheet):
     min_extent = "prop:Vector3D"
     child_nodes = cast(list, "prop:List")
     data = cast(list, "prop:List")
-    transform_space = cast(int, "prop:Enumeration")
+    TransformSpace = cast(int, "prop:Enumeration")
     euler_rotation = "prop:Vector3D"
     forward = "prop:Vector3D"
     opacity = cast(float, "prop:Real")
@@ -1051,7 +1051,7 @@ class PsParticleEmitter3D(PsNode):
 
 
 class PsPerspectiveCamera(PsCamera):
-    field_of_view_orientation = cast(int, "prop:Enumeration")
+    FieldOfViewOrientation = cast(int, "prop:Enumeration")
     clip_far = cast(float, "prop:Real")
     clip_near = cast(float, "prop:Real")
     field_of_view = cast(float, "prop:Real")
@@ -1308,7 +1308,7 @@ class PsBlendEquation(PsRenderState):
 
 
 class PsBlendEquationArguments(PsRenderState):
-    destination_alpha = cast(int, "prop:Enumeration")
+    DestinationAlpha = cast(int, "prop:Enumeration")
     buffer_index = cast(int, "prop:Int")
     destination_rgb = cast(int, "prop:Enumeration")
     source_alpha = cast(int, "prop:Enumeration")
@@ -1405,7 +1405,7 @@ class PsDirectionalLight(P.PropSheet):
     shadow_map_quality = cast(int, "prop:Enumeration")
     child_nodes = cast(list, "prop:List")
     data = cast(list, "prop:List")
-    transform_space = cast(int, "prop:Enumeration")
+    TransformSpace = cast(int, "prop:Enumeration")
     euler_rotation = "prop:Vector3D"
     forward = "prop:Vector3D"
     opacity = cast(float, "prop:Real")
@@ -1448,7 +1448,7 @@ class PsEffect(P.PropSheet):
     techniques = cast(list, "prop:List")
     child_nodes = cast(list, "prop:List")
     data = cast(list, "prop:List")
-    transform_space = cast(int, "prop:Enumeration")
+    TransformSpace = cast(int, "prop:Enumeration")
     euler_rotation = "prop:Vector3D"
     forward = "prop:Vector3D"
     opacity = cast(float, "prop:Real")
@@ -1529,7 +1529,7 @@ class PsLayerFilter(PsFrameGraphNode):
 
 
 class PsLevelOfDetail(PsComponent3D):
-    threshold_type = cast(int, "prop:Enumeration")
+    ThresholdType = cast(int, "prop:Enumeration")
     camera = "prop:Property"
     current_index = cast(int, "prop:Int")
     threshold_type = cast(int, "prop:Int")
@@ -1564,7 +1564,7 @@ class PsLight(P.PropSheet):
     shadow_map_quality = cast(int, "prop:Enumeration")
     child_nodes = cast(list, "prop:List")
     data = cast(list, "prop:List")
-    transform_space = cast(int, "prop:Enumeration")
+    TransformSpace = cast(int, "prop:Enumeration")
     euler_rotation = "prop:Vector3D"
     forward = "prop:Vector3D"
     opacity = cast(float, "prop:Real")
@@ -1696,7 +1696,7 @@ class PsPointLight(P.PropSheet):
     shadow_map_quality = cast(int, "prop:Enumeration")
     child_nodes = cast(list, "prop:List")
     data = cast(list, "prop:List")
-    transform_space = cast(int, "prop:Enumeration")
+    TransformSpace = cast(int, "prop:Enumeration")
     euler_rotation = "prop:Vector3D"
     forward = "prop:Vector3D"
     opacity = cast(float, "prop:Real")
@@ -1928,7 +1928,7 @@ class PsSpotLight(P.PropSheet):
     shadow_map_quality = cast(int, "prop:Enumeration")
     child_nodes = cast(list, "prop:List")
     data = cast(list, "prop:List")
-    transform_space = cast(int, "prop:Enumeration")
+    TransformSpace = cast(int, "prop:Enumeration")
     euler_rotation = "prop:Vector3D"
     forward = "prop:Vector3D"
     opacity = cast(float, "prop:Real")
@@ -2134,7 +2134,7 @@ class PsSkeleton(P.PropSheet):
     root_joint = "prop:Property"
     child_nodes = cast(list, "prop:List")
     data = cast(list, "prop:List")
-    transform_space = cast(int, "prop:Enumeration")
+    TransformSpace = cast(int, "prop:Enumeration")
     euler_rotation = "prop:Vector3D"
     forward = "prop:Vector3D"
     opacity = cast(float, "prop:Real")
@@ -2179,7 +2179,7 @@ class PsTransform(P.PropSheet):
     is_shareable = cast(bool, "prop:Bool")
     child_nodes = cast(list, "prop:List")
     data = cast(list, "prop:List")
-    transform_space = cast(int, "prop:Enumeration")
+    TransformSpace = cast(int, "prop:Enumeration")
     euler_rotation = "prop:Vector3D"
     forward = "prop:Vector3D"
     opacity = cast(float, "prop:Real")
@@ -5128,7 +5128,7 @@ class PsModelParticle3D(PsParticle3D):
 
 
 class PsParticleShape3D(PsQtObject):
-    shape_type = cast(int, "prop:Enumeration")
+    ShapeType = cast(int, "prop:Enumeration")
     extents = "prop:Vector3D"
     fill = cast(bool, "prop:Bool")
     type = "prop:Property"
@@ -5161,7 +5161,7 @@ class PsPointRotator3D(PsAffector3D):
 
 
 class PsSpriteParticle3D(PsParticle3D):
-    blend_mode = cast(int, "prop:Enumeration")
+    BlendMode = cast(int, "prop:Enumeration")
     billboard = cast(bool, "prop:Bool")
     blend_mode = "prop:Property"
     color_table = "prop:Property"

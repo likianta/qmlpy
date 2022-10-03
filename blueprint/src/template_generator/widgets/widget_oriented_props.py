@@ -213,12 +213,17 @@ def _generate_props(
         # adjust prop_name
         if '.' in prop_name:
             continue
-        prop_name = camel_2_snake_case(prop_name)
-        #   e.g. 'checkStateMixed' -> 'check_state_mixed'
-        if prop_name in ('from', 'name', 'properties'):  # FIXME
-            #   'name', 'properties' are occupied by `qmlpy.widgets.base
-            #   .Component`
-            prop_name += '_'
+        if prop_name[0].isupper():
+            #   e.g. 'AlignMode'. it is an enum type.
+            # TODO: convert it to all upper case.
+            pass
+        else:
+            prop_name = camel_2_snake_case(prop_name)
+            #   e.g. 'checkStateMixed' -> 'check_state_mixed'
+            if prop_name in ('from', 'name', 'properties'):  # FIXME
+                #   'name', 'properties' are occupied by `qmlpy.widgets.base
+                #   .Component`
+                prop_name += '_'
         
         # ----------------------------------------------------------------------
         
