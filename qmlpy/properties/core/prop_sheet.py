@@ -93,14 +93,8 @@ def _get_base_classes(cls: T.PropSheet) -> T.SuperClasses:
         temp_cls = temp_cls.__base__
 
 
-Delegate = ...  # TODO  # noqa
-
-
 def _get_actual_prop_class(prop_type: T.PropType) -> T.PropFactory:
-    if prop_type == 'prop:Delegate':
-        # TODO: can this case be removed?
-        pass
-    elif prop_type == 'prop:Property':
+    if prop_type == 'prop:Property':
         return Property
     else:
         factory = getattr(basic_types, prop_type[5:])
