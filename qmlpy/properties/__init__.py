@@ -7,4 +7,3 @@ references:
 from . import basic_types
 from . import core
 from . import group_types
-from .core import PropSheet
