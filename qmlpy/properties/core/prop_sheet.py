@@ -2,80 +2,79 @@ from __future__ import annotations
 
 import typing as t
 
-from .prop import Property
-from .. import basic_types
-
-
-class PropSheet:
-    pass
+from .. import group_types
+from ..._typehint import T as T0
 
 
 class T:
-    PropSheet = PropSheet
-    Property = ...
-    
+    Component = T0.Component
     PropName = str
     PropType = str
     #   e.g. 'prop:Number'
     #   1. must start with 'prop:'
     #   2. there is no space between 'prop:' and the type name.
     #   3. the type name can be found in the list of `..basic_types`.
-    SuperClasses = t.Iterator[t.Any]
-    Target = t.Any
     
-    PropFactory = t.Union[Property, t.Callable]
-    #   either be a Property class, or an anonymous function that returns a
-    #   Property class (which is `Delegate` or `AnyItem`).
+    Properties = t.Dict[PropName, t.Optional[T0.PropGroup]]
+    PropsIter = t.Iterator[t.Tuple[PropName, t.Optional[T0.PropGroup]]]
     
-    PropsIter = t.Iterator[t.Tuple[PropName, PropFactory]]
+    SubClassOfPropSheet = t.Type[T0.PropSheet]
+    SuperClasses = t.Iterator[SubClassOfPropSheet]
 
 
-def init_prop_sheet(target: T.Target, prefix=''):
+class PropSheet:
+    properties: T.Properties
+    
+    def __init__(self):
+        init_prop_sheet(self.__class__)
+
+
+def init_prop_sheet(target_class: T.SubClassOfPropSheet) -> None:
     """
     ref: https://stackoverflow.com/questions/2611892/how-to-get-the-parents-of-a
         -python-class
     """
-    assert all((
-        hasattr(target, 'id'),
-        # hasattr(target, 'name'),
-        hasattr(target, '_properties'),
-    ))
+    if target_class is PropSheet:
+        return
     
-    base_mixins = target.__class__.__bases__
+    base_mixins = target_class.__class__.__bases__
     assert len(base_mixins) > 1 and issubclass(base_mixins[-1], PropSheet), (
         #  ^ assert 2+              ^ assert the final mixin is from PropSheet
         'target class must inherit from `PropSheet` (or its subclass) and you '
-        'should put `PropSheet` as its last mixin.', target, base_mixins
+        'should put `PropSheet` as its last mixin.', target_class, base_mixins
     )
     
-    for prop_name, prop_factory in _get_all_props(base_mixins[-1]):
-        # noinspection PyProtectedMember
-        target._properties[prop_name] = prop_factory(
-            target.id, prefix + '.' + prop_name if prefix else prop_name
-            #          ^ e.g. 'anchors.top'                    ^ e.g. 'width'
-        )
+    properties: T.Properties = {}
+    # noinspection PyTypeChecker
+    for prop_name, prop_type in _get_all_props(base_mixins[-1]):
+        properties[prop_name] = prop_type
+    setattr(target_class, 'properties', properties)
 
 
-def _get_all_props(target_class: T.PropSheet) -> T.PropsIter:
-    if target_class is PropSheet:
-        raise Exception(
-            'this function can only be used for subclasses inherit from '
-            '`PropSheet`, not for `PropSheet` itself!'
-        )
+def _get_all_props(target_class: T.SubClassOfPropSheet) -> T.PropsIter:
+    # if target_class is PropSheet:
+    #     raise Exception(
+    #         'this function can only be used for subclasses inherit from '
+    #         '`PropSheet`, not for `PropSheet` itself!'
+    #     )
     for cls in _get_base_classes(target_class):
+        #   the `cls` is from `...widgets.widget_props`.
         #   for example:
         #       class A:
         #           width = cast(int, 'prop:Number')
-        for k, v in cls.__annotations__.items():
-            if v.startswith('prop:'):
+        for k, v in cls.__dict__.items():
+            if isinstance(v, str) and v.startswith('prop:'):
                 #   k: str, property name. e.g. 'width'
                 #   v: str, must start with 'prop:'. e.g. 'prop:Number'
                 prop_name = k
-                prop_factory = _get_actual_prop_class(v)
-                yield prop_name, prop_factory
+                if v[5:] in group_types.index:
+                    prop_type = getattr(group_types, v[5:])()
+                else:
+                    prop_type = None
+                yield prop_name, prop_type
 
 
-def _get_base_classes(cls: T.PropSheet) -> T.SuperClasses:
+def _get_base_classes(cls: T.SubClassOfPropSheet) -> T.SuperClasses:
     """
     args:
         cls: a subclass of PropSheet.
@@ -91,11 +90,3 @@ def _get_base_classes(cls: T.PropSheet) -> T.SuperClasses:
     while issubclass(temp_cls, PropSheet):
         yield temp_cls
         temp_cls = temp_cls.__base__
-
-
-def _get_actual_prop_class(prop_type: T.PropType) -> T.PropFactory:
-    if prop_type == 'prop:Property':
-        return Property
-    else:
-        factory = getattr(basic_types, prop_type[5:])
-        return factory
