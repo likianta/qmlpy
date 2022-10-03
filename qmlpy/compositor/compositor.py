@@ -4,8 +4,8 @@ from secrets import token_hex
 
 from lk_utils import dumps
 
+from .._typehint import T as T0
 from ..declarative import id_mgr
-from ..typehint import T as T0
 
 __all__ = ['build_component', 'build_tree']
 
@@ -82,7 +82,7 @@ def _build_loop(comp: T.Component, level: int) -> str:
 
 
 def _build_properties(props: T.Properties, group_name='') -> t.Iterator[str]:
-    from ...properties.core import PropGroup
+    from ..properties.core import PropGroup
     for name, prop in props.items():
         if prop is None:
             continue
@@ -99,8 +99,8 @@ def _build_properties(props: T.Properties, group_name='') -> t.Iterator[str]:
 
 
 def _build_connections(props: T.Properties) -> t.Iterator[str]:
+    from ..properties.core import PropGroup
     from ..pyside import pyside
-    from ...properties.core import PropGroup
     
     for name, prop in props.items():
         if prop is None:

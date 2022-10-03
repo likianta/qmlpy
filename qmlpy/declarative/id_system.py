@@ -4,7 +4,7 @@ import typing as t
 from collections import defaultdict
 from dataclasses import dataclass
 
-from ..typehint import T as T0
+from .._typehint import T as T0
 
 __all__ = ['T', 'Id', 'gen_id', 'id_gen', 'id_mgr']
 

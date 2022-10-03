@@ -15,8 +15,8 @@ from typing import Any
 
 if __name__ == '__main__':  # this is never reachable, just for type hint.
     class T:
-        from qmlpy.core.component import Component  # noqa
-        from qmlpy.core.declarative.id_system import Id  # noqa
+        from qmlpy.component import Component  # noqa
+        from qmlpy.declarative.id_system import Id  # noqa
         from qmlpy.properties.core import PropGroup  # noqa
         from qmlpy.properties.core import Property  # noqa
 

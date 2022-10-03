@@ -1,1 +1,1 @@
-from qmlpy.core import Component  # noqa
+from qmlpy.component import Component  # noqa

@@ -6,12 +6,6 @@ from qtpy.QtQml import QQmlContext
 from qtpy.QtWidgets import QApplication
 
 
-class T:
-    from os import PathLike
-    from typing import Union
-    Path = Union[PathLike, str]
-
-
 class Application(QApplication):
     engine: QQmlApplicationEngine
     root: QQmlContext
@@ -59,13 +53,13 @@ class Application(QApplication):
         from os import name
         if name == 'nt':
             self.setFont('Microsoft YaHei UI')  # noqa
-
+    
     def __enter__(self):
         return self
-
+    
     def __exit__(self, exc_type, exc_val, exc_tb):
         pass
-
+    
     # -------------------------------------------------------------------------
     
     def set_app_name(self, name: str):
@@ -174,7 +168,7 @@ class Application(QApplication):
     def run(self, qml_file: str, debug=False):
         if debug:
             from .qmlside import HotReloader
-            reloader = HotReloader(reload_scheme='clear_cache', app=app)
+            reloader = HotReloader(reload_scheme='clear_cache', app=self)
             reloader.run(qml_file)
         else:
             self._run(qml_file)
@@ -200,7 +194,7 @@ class Application(QApplication):
     #   -startapps+&cd=1&hl=zh-CN&ct=clnk&gl=sg
     launch = start = open = run
     
-    def show_splash_screen(self, file: T.Path):
+    def show_splash_screen(self, file: str):
         from os.path import exists
         assert exists(file)
         
