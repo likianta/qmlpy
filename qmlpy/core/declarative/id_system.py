@@ -4,7 +4,22 @@ import typing as t
 from collections import defaultdict
 from dataclasses import dataclass
 
+from ..typehint import T as T0
+
 __all__ = ['T', 'Id', 'gen_id', 'id_gen', 'id_mgr']
+
+
+class T:
+    Component = T0.Component
+    Componentx = t.Optional[Component]
+    Id = T0.Id
+    Idx = t.Optional[Id]
+    IdChain = t.Dict[int, int]
+    Level = int
+    Token = t.Tuple[int, ...]
+    #   each int is a level >= 1.
+    
+    GlobalIds = t.Dict[Token, Component]
 
 
 @dataclass
@@ -12,11 +27,11 @@ class Id:
     token: T.Token
     
     def __str__(self) -> str:
-        return self.text
+        return '_'.join(map(str, self.token))
     
-    @property
-    def text(self) -> str:
-        return 'id_' + '_'.join(map(str, self.token))
+    # @property
+    # def text(self) -> str:
+    #     return '_'.join(map(str, self.token))
     
     @property
     def level(self) -> int:  # >= 1
@@ -46,20 +61,6 @@ class Id:
         return Id((*self.token[:-1], x + 1))
 
 
-class T:
-    if __name__ == '__main__':
-        # never reachable case, just for type hint.
-        from ..component import Component
-    else:
-        Component = t.Any
-    Componentx = t.Optional[Component]
-    Id = Id
-    Idx = t.Optional[Id]
-    IdChain = t.Dict[int, int]
-    Level = int
-    Token = t.Tuple[int, ...]
-
-
 class IdGenerator:
     _level: T.Level
     _id_chain: T.IdChain
@@ -85,13 +86,13 @@ class IdGenerator:
 
 
 class IdFinder:
-    _global_ids: t.Dict[T.Token, T.Component]
+    _global_ids: T.GlobalIds
     _curr_id: T.Idx
     _root_id: T.Id
     
     def __init__(self):
         self._curr_id = None
-        self._root_id = Id(())
+        self._root_id = Id((1,))
         self._global_ids = {}
     
     def set_current_id(self, id_: T.Id) -> None:
@@ -145,6 +146,9 @@ class IdManager(IdFinder):
     
     def register(self, id_: Id, comp: T.Component) -> None:
         self._global_ids[id_.token] = comp
+    
+    def walk(self) -> t.Iterator[t.Tuple[T.Token, T.Component]]:
+        yield from self._global_ids.items()
     
     def finalize(self):
         pass
