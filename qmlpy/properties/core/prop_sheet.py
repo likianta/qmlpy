@@ -3,27 +3,34 @@ from __future__ import annotations
 import typing as t
 from dataclasses import dataclass
 
-from ..._typehint import T as T0
+from fake_typing import register_fake_typing
 
-
-class T:
-    PropName = str
-    PropType0 = str
-    #   e.g. 'prop:Number'
-    #   1. must start with 'prop:'
-    #   2. there is no space between 'prop:' and the type name.
-    #   3. the type name can be found in the list of `..basic_types`.
-    PropType1 = t.Union[T0.NotDefined, T0.PropGroup]
-    
-    Properties0 = t.Dict[PropName, PropType1]
-    # Properties1 = t.Iterator[
-    #     t.Tuple[PropName, t.Union[T0.NotDefined, t.Any, T0.PropGroup]]]
-    Properties1 = t.Dict[PropName, t.Union[T0.NotDefined, t.Any, T0.PropGroup]]
-    AllPropertiesResult = t.Iterator[t.Tuple[PropName, PropType1]]
-    
-    SubInstanceOfPropSheet = T0.PropSheet
-    SubClassOfPropSheet = t.Type[T0.PropSheet]
-    SuperClasses = t.Iterator[SubInstanceOfPropSheet]
+if register_fake_typing is None:
+    # this is never reacable. just for cheating with IDE.
+    class T:
+        from qmlpy.properties.core import NotDefined
+        from qmlpy.properties.core import PropGroup
+        from qmlpy.properties.core import PropSheet
+        
+        PropName = str
+        PropType0 = str
+        #   e.g. 'prop:Number'
+        #   1. must start with 'prop:'
+        #   2. there is no space between 'prop:' and the type name.
+        #   3. the type name can be found in the list of `..basic_types`.
+        PropType1 = t.Union[NotDefined, PropGroup]
+        
+        Properties0 = t.Dict[PropName, PropType1]
+        # Properties1 = t.Iterator[
+        #     t.Tuple[PropName, t.Union[T0.NotDefined, t.Any, T0.PropGroup]]]
+        Properties1 = t.Dict[PropName, t.Union[NotDefined, t.Any, PropGroup]]
+        AllPropertiesResult = t.Iterator[t.Tuple[PropName, PropType1]]
+        
+        SubInstanceOfPropSheet = PropSheet
+        SubClassOfPropSheet = t.Type[PropSheet]
+        SuperClasses = t.Iterator[SubInstanceOfPropSheet]
+else:
+    register_fake_typing('T')
 
 
 class PropSheet:

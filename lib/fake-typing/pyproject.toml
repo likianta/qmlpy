@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "fake-typing"
+version = "0.1.0"
+description = ""
+authors = ["Likianta <likianta@foxmail.com>"]
+license = "MIT"
+
+[[tool.poetry.source]]
+name = "tsinghua"
+url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/"
+default = true
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[build-system]
+requires = ["poetry"]
+build-backend = "poetry.masonry.api"
