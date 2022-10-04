@@ -3,7 +3,7 @@ import typing as t
 from qtpy.QtQuick import QQuickItem
 
 from .common_util import snake_2_camel_case
-from .prop_group import PropertyGroup
+from .prop_group import PropGroup
 
 
 class T:
@@ -30,10 +30,10 @@ def build(qobj: T.QObject):
 
 def getprop(
         comp: T.Component, key: str, default_value: t.Any
-) -> t.Union['PropDelegate', PropertyGroup]:
+) -> t.Union['PropDelegate', PropGroup]:
     if not _root:
         return default_value
-    if isinstance(default_value, PropertyGroup):
+    if isinstance(default_value, PropGroup):
         return default_value
     qobj: T.QObject = _root.findChild(QQuickItem, comp.id)  # noqa
     try:
@@ -46,20 +46,20 @@ def setprop(
         comp: T.Component, key: str, value: t.Any,
         default_set: t.Callable
 ) -> None:
-    from ..properties import Anchors
-    from ..qmlside import qmlside
+    from ..group_types import Anchors
+    from ...qmlside import qmlside
     
     if not _root:
         default_set(key, value)
         return
     
-    if isinstance(value, PropertyGroup):
+    if isinstance(value, PropGroup):
         raise Exception('This is not writable', comp, key, value)
     
     qobj: T.QObject = _root.findChild(comp.qid)  # noqa
     key: str = snake_2_camel_case(key)
     
-    if isinstance(comp, PropertyGroup):
+    if isinstance(comp, PropGroup):
         group_name = snake_2_camel_case(comp.name)
         if isinstance(comp, Anchors):
             if key in ('centerIn', 'fill'):
@@ -70,7 +70,7 @@ def setprop(
         else:
             qmlside.bind_prop(
                 qobj, f'{group_name}.{key}', value.qobj, value.prop)
-        
+    
     elif isinstance(value, PropDelegate):
         qmlside.bind_prop(qobj, key, value.qobj, value.prop)
     else:

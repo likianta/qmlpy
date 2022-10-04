@@ -2,13 +2,12 @@ import re
 import typing as t
 
 from . import proxy
+from ..._typehint import T as T0
 
 
 class T:
     Enums = t.Dict[str, t.Union[int, float, bool, str]]
-    Prop = ...
-    PropGroup = ...
-    Props = t.Dict[str, t.Union[Prop, PropGroup]]
+    Props = t.Dict[str, t.Union[T0.Property, T0.PropGroup]]
     Signals = t.Dict[str, t.Callable]
 
 

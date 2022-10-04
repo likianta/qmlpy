@@ -11,7 +11,7 @@ from ...common import camel_2_snake_case
 from ...io import T as T0
 from ...io import path
 
-BASE_CLASS = 'P.PropSheet'
+BASE_CLASS = 'PropSheet'
 
 
 class T(T0):
@@ -101,8 +101,7 @@ def main(file_o: str = path.proj_root + '/qmlpy/widgets/widget_props.py',
         """
         from typing import cast
         
-        # see `qmlpy.widgets.namespace.__qml_namespace__`
-        from __qml_namespace__ import P
+        from ..properties.core import PropSheet
 
 
         {WIDGETS}
@@ -233,26 +232,21 @@ def _generate_props(
             prop_type = prop_type.replace('::', '.')
         prop_type = re.match(r'[.\w]+', prop_type).group()
         
-        if prop_type[0].isupper():  # e.g. 'Item'
-            prop_type = 'cast({}, P.Delegate)'.format(prop_type)
+        _temp_collector = defaultdict(set)  # TODO
+        if prop_type == 'group':
+            _temp_collector['group_props'].add((prop_name, prop_type))
+            prop_type = prop_name
         
-        else:
-            _temp_collector = defaultdict(set)  # TODO
-            if prop_type == 'group':
-                _temp_collector['group_props'].add((prop_name, prop_type))
-                prop_type = prop_name
-            
-            if prop_type in basic_qml_types:
-                a, b = basic_qml_types[prop_type]
-                if a:
-                    prop_type = 'cast({}, {})'.format(a, b)
-                    #   e.g. 'cast(str, String)'
-                else:
-                    prop_type = b  # e.g. 'Anchors'
+        if prop_type in basic_qml_types:
+            a, b = basic_qml_types[prop_type]
+            if a:
+                prop_type = 'cast({}, {})'.format(a, b)
+                #   e.g. 'cast(str, String)'
             else:
-                prop_type = 'Property'
-                # prop_type = 'cast("{}", P.Property)'.format(prop_type)
-                _temp_collector['unknown_props'].add((prop_name, prop_type))
+                prop_type = b  # e.g. 'Anchors'
+        else:
+            prop_type = 'Property'
+            _temp_collector['unknown_props'].add((prop_name, prop_type))
         
         if cast_safe:
             if 'cast(' in prop_type:

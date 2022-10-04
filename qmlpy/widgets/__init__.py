@@ -6,10 +6,10 @@ def __init__():
     
     from __qml_namespace__ import setup
     from . import widget_props
-    from .. import properties
-    from ..core import Component
+    from ..component import Component
+    from ..properties import core
     setup(component=Component,
-          properties=properties,
+          properties=core,
           widget_properties=widget_props)
 
 

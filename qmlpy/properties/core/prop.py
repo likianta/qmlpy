@@ -1,13 +1,12 @@
 import typing as t
 
 from .common_util import snake_2_camel_case
+from ..._typehint import T as T0
 
 
 class T:
-    Id = ...
-    Prop = ...
-    
-    BindingArg0 = t.Union[Prop, t.Iterable[Prop]]
+    Id = T0.Id
+    BindingArg0 = t.Union[T0.Property, t.Iterable[T0.Property]]
     BindingArg1 = t.Optional[t.Callable]
     Bound = t.List
     PropName = str

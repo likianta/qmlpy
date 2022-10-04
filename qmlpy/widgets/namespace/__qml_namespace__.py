@@ -13,8 +13,10 @@ class T:  # a fake typehint class, cheat with IDE type checking.
             from qmlpy.properties.core import PropSheet
             PropSheet = PropSheet
     
-    def __class_getitem__(cls, item):
-        return None
+    
+setattr(T, 'Component', None)
+setattr(T, 'PropsVendor', None)
+setattr(T, 'widget_props', None)
 
 
 qml_namespace = set()  # type: set[str]

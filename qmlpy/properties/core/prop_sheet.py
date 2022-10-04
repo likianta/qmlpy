@@ -1,62 +1,95 @@
 from __future__ import annotations
 
 import typing as t
+from dataclasses import dataclass
 
-from .. import group_types
 from ..._typehint import T as T0
 
 
 class T:
-    Component = T0.Component
     PropName = str
-    PropType = str
+    PropType0 = str
     #   e.g. 'prop:Number'
     #   1. must start with 'prop:'
     #   2. there is no space between 'prop:' and the type name.
     #   3. the type name can be found in the list of `..basic_types`.
+    PropType1 = t.Union[T0.NotDefined, T0.PropGroup]
     
-    Properties = t.Dict[PropName, t.Optional[T0.PropGroup]]
-    PropsIter = t.Iterator[t.Tuple[PropName, t.Optional[T0.PropGroup]]]
+    Properties0 = t.Dict[PropName, PropType1]
+    # Properties1 = t.Iterator[
+    #     t.Tuple[PropName, t.Union[T0.NotDefined, t.Any, T0.PropGroup]]]
+    Properties1 = t.Dict[PropName, t.Union[T0.NotDefined, t.Any, T0.PropGroup]]
+    AllPropertiesResult = t.Iterator[t.Tuple[PropName, PropType1]]
     
+    SubInstanceOfPropSheet = T0.PropSheet
     SubClassOfPropSheet = t.Type[T0.PropSheet]
-    SuperClasses = t.Iterator[SubClassOfPropSheet]
+    SuperClasses = t.Iterator[SubInstanceOfPropSheet]
 
 
 class PropSheet:
-    properties: T.Properties
+    _properties: T.Properties0
     
     def __init__(self):
-        init_prop_sheet(self.__class__)
+        self._init_properties()
+    
+    def _init_properties(self) -> None:
+        self._properties = init_prop_sheet(self)
+        for k, v in self._properties.items():
+            setattr(self, k, v)
+    
+    @property
+    def properties(self) -> T.Properties1:
+        from .prop_group import PropGroup
+        out = {}
+        for k, v in self._properties.items():
+            if isinstance(v, PropGroup):
+                out[k] = v
+            else:
+                real_v = getattr(self, k)
+                if isinstance(real_v, NotDefined):
+                    out[k] = None
+                else:
+                    out[k] = real_v
+        return out
 
 
-def init_prop_sheet(target_class: T.SubClassOfPropSheet) -> None:
+@dataclass
+class NotDefined:
+    meta_prop: str
+
+
+def init_prop_sheet(target: T.SubInstanceOfPropSheet) -> T.Properties0:
     """
+    notice: target is an instance of a subclass of PropSheet.
     ref: https://stackoverflow.com/questions/2611892/how-to-get-the-parents-of-a
         -python-class
     """
-    if target_class is PropSheet:
-        return
+    if target.__class__ is PropSheet:
+        return {}
     
-    base_mixins = target_class.__class__.__bases__
+    base_mixins = target.__class__.__bases__
     assert len(base_mixins) > 1 and issubclass(base_mixins[-1], PropSheet), (
         #  ^ assert 2+              ^ assert the final mixin is from PropSheet
         'target class must inherit from `PropSheet` (or its subclass) and you '
-        'should put `PropSheet` as its last mixin.', target_class, base_mixins
+        'should put `PropSheet` as its last mixin.',
+        target.__name__, [x.__name__ for x in base_mixins]
     )
     
-    properties: T.Properties = {}
+    properties: T.Properties0 = {}
     # noinspection PyTypeChecker
     for prop_name, prop_type in _get_all_props(base_mixins[-1]):
         properties[prop_name] = prop_type
-    setattr(target_class, 'properties', properties)
+    return properties
 
 
-def _get_all_props(target_class: T.SubClassOfPropSheet) -> T.PropsIter:
-    # if target_class is PropSheet:
-    #     raise Exception(
-    #         'this function can only be used for subclasses inherit from '
-    #         '`PropSheet`, not for `PropSheet` itself!'
-    #     )
+def _get_all_props(
+        target_class: T.SubClassOfPropSheet
+) -> T.AllPropertiesResult:
+    from .. import group_types
+    
+    prop_name: T.PropName
+    prop_type: T.PropType1
+    
     for cls in _get_base_classes(target_class):
         #   the `cls` is from `...widgets.widget_props`.
         #   for example:
@@ -70,7 +103,7 @@ def _get_all_props(target_class: T.SubClassOfPropSheet) -> T.PropsIter:
                 if v[5:] in group_types.index:
                     prop_type = getattr(group_types, v[5:])()
                 else:
-                    prop_type = None
+                    prop_type = NotDefined(v[5:])
                 yield prop_name, prop_type
 
 

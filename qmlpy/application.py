@@ -42,10 +42,6 @@ class Application(QApplication):
         
         self._ui_fine_tune()
         
-        from lk_utils import relpath
-        self.register_qmldir(relpath('widgets'))
-        self.register_qmldir(relpath('themes'))
-        
         self.on_exit = super().aboutToQuit  # noqa
         self.on_exit.connect(self._exit)
     
@@ -164,6 +160,11 @@ class Application(QApplication):
         pyassets.add_source(relpath('widgets'), 'lkwidgets')
     
     # -------------------------------------------------------------------------
+    
+    @staticmethod
+    def build(dir_o: str) -> None:
+        from .compositor import build_tree
+        build_tree(f'{dir_o}/index.qml')
     
     def run(self, qml_file: str, debug=False):
         if debug:

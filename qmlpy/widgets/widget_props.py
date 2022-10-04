@@ -14,11 +14,10 @@ the prefix 'P' means 'Property' derives from `qmlpy.properties.core
 """
 from typing import cast
 
-# see `qmlpy.widgets.namespace.__qml_namespace__`
-from __qml_namespace__ import P
+from ..properties.core import PropSheet
 
 
-class PsQtObject(P.PropSheet):
+class PsQtObject(PropSheet):
     object_name = cast(str, "prop:String")
 
 
@@ -58,7 +57,7 @@ class PsItem(PsQtObject):
     z = cast(float, "prop:Real")
 
 
-class PsNode(P.PropSheet):
+class PsNode(PropSheet):
     child_nodes = cast(list, "prop:List")
     data = cast(list, "prop:List")
     TransformSpace = cast(int, "prop:Enumeration")
@@ -121,7 +120,7 @@ class PsControl(PsItem):
     wheel_enabled = cast(bool, "prop:Bool")
 
 
-class PsAnimation(P.PropSheet):
+class PsAnimation(PropSheet):
     always_run_to_end = cast(bool, "prop:Bool")
     loops = cast(int, "prop:Int")
     paused = cast(bool, "prop:Bool")
@@ -136,7 +135,7 @@ class PsFrameGraphNode(PsNode):
     pass
 
 
-class PsAbstractSeries(P.PropSheet):
+class PsAbstractSeries(PropSheet):
     name_ = cast(str, "prop:String")
     opacity = cast(float, "prop:Real")
     type = cast(int, "prop:Enumeration")
@@ -188,7 +187,7 @@ class PsBaseKey(PsItem):
     weight = cast(float, "prop:Real")
 
 
-class PsMaterial(P.PropSheet):
+class PsMaterial(PropSheet):
     effect = "prop:Property"
     parameters = cast(list, "prop:List")
     cull_mode = cast(int, "prop:Enumeration")
@@ -220,7 +219,7 @@ class PsObject3D(PsQtObject):
     transitions = cast(list, "prop:List")
 
 
-class PsPointerHandler(P.PropSheet):
+class PsPointerHandler(PropSheet):
     active = cast(bool, "prop:Bool")
     cursor_shape = "prop:Property"
     drag_threshold = cast(int, "prop:Int")
@@ -258,7 +257,7 @@ class PsPropertyAnimation(PsAnimation):
     to = "prop:Property"
 
 
-class PsAffector(P.PropSheet):
+class PsAffector(PropSheet):
     acceleration = "prop:Property"
     enabled = cast(bool, "prop:Bool")
     groups = cast(list, "prop:List")
@@ -297,7 +296,7 @@ class PsAnimator(PsAnimation):
     to = cast(float, "prop:Real")
 
 
-class PsAbstractAxis(P.PropSheet):
+class PsAbstractAxis(PropSheet):
     alignment = "prop:Property"
     color = cast(str, "prop:Color")
     grid_line_color = cast(str, "prop:Color")
@@ -320,7 +319,7 @@ class PsAbstractAxis(P.PropSheet):
     visible = cast(bool, "prop:Bool")
 
 
-class PsDialog(P.PropSheet):
+class PsDialog(PropSheet):
     footer = "prop:Property"
     header = "prop:Property"
     implicit_footer_height = cast(float, "prop:Real")
@@ -441,7 +440,7 @@ class PsFlickable(PsItem):
     visible_area = "prop:VisibleArea"
 
 
-class PsCamera(P.PropSheet):
+class PsCamera(PropSheet):
     aspect_ratio = cast(float, "prop:Real")
     bottom = cast(float, "prop:Real")
     exposure = cast(float, "prop:Real")
@@ -506,7 +505,7 @@ class PsItemDelegate(PsAbstractButton):
     highlighted = cast(bool, "prop:Bool")
 
 
-class PsGradient(P.PropSheet):
+class PsGradient(PropSheet):
     orientation = cast(int, "prop:Enumeration")
     stops = cast(list, "prop:List")
 
@@ -527,7 +526,7 @@ class PsSinglePointHandler(PsPointerDeviceHandler):
     target = "prop:Property"
 
 
-class PsDirection(P.PropSheet):
+class PsDirection(PropSheet):
     pass
 
 
@@ -537,7 +536,7 @@ class PsAffector3D(PsNode):
     system = "prop:Property"
 
 
-class PsAbstractAnimation(P.PropSheet):
+class PsAbstractAnimation(PropSheet):
     animation_name = cast(str, "prop:String")
     animation_type = cast(int, "prop:Enumeration")
     duration = cast(float, "prop:Real")
@@ -578,7 +577,7 @@ class PsShapeGradient(PsGradient):
     spread = cast(int, "prop:Enumeration")
 
 
-class PsAbstractClipAnimator(P.PropSheet):
+class PsAbstractClipAnimator(PropSheet):
     channel_mapper = "prop:Property"
     clock = "prop:Property"
     loops = cast(int, "prop:Int")
@@ -717,7 +716,7 @@ class PsParticle3D(PsObject3D):
     unified_color_variation = cast(bool, "prop:Bool")
 
 
-class PsCommand(P.PropSheet):
+class PsCommand(PropSheet):
     pass
 
 
@@ -736,7 +735,7 @@ class PsAbstractSkeleton(PsNode):
     pass
 
 
-class PsBoundingVolume(P.PropSheet):
+class PsBoundingVolume(PropSheet):
     implicit_max_point = "prop:Vector3D"
     implicit_min_point = "prop:Vector3D"
     implicit_points_valid = cast(bool, "prop:Bool")
@@ -745,7 +744,7 @@ class PsBoundingVolume(P.PropSheet):
     view = "prop:Property"
 
 
-class PsGeometry(P.PropSheet):
+class PsGeometry(PropSheet):
     attributes = cast(list, "prop:List")
     bounding_volume_position_attribute = "prop:Property"
     max_extent = "prop:Vector3D"
@@ -780,7 +779,7 @@ class PsGeometry(P.PropSheet):
     object_name = cast(str, "prop:String")
 
 
-class PsChartView(P.PropSheet):
+class PsChartView(PropSheet):
     animation_duration = cast(int, "prop:Int")
     animation_easing_curve = "prop:Easing"
     animation_options = cast(int, "prop:Enumeration")
@@ -852,7 +851,7 @@ class PsMultiPointTouchArea(PsItem):
     touch_points = cast(list, "prop:List")
 
 
-class PsPath(P.PropSheet):
+class PsPath(PropSheet):
     closed = cast(bool, "prop:Bool")
     path_elements = cast(list, "prop:List")
     scale = "prop:Size"
@@ -999,7 +998,7 @@ class PsTextInput(PsItem):
     wrap_mode = cast(int, "prop:Enumeration")
 
 
-class PsWindow(P.PropSheet):
+class PsWindow(PropSheet):
     active = cast(bool, "prop:Bool")
     active_focus_item = "prop:Property"
     color = cast(str, "prop:Color")
@@ -1058,13 +1057,13 @@ class PsPerspectiveCamera(PsCamera):
     field_of_view_orientation = cast(int, "prop:Enumeration")
 
 
-class PsComponent(P.PropSheet):
+class PsComponent(PropSheet):
     progress = cast(float, "prop:Real")
     status = cast(int, "prop:Enumeration")
     url = cast(str, "prop:Url")
 
 
-class PsWaylandQuickItem(P.PropSheet):
+class PsWaylandQuickItem(PropSheet):
     buffer_locked = cast(bool, "prop:Bool")
     compositor = "prop:Property"
     focus_on_click = cast(bool, "prop:Bool")
@@ -1075,19 +1074,19 @@ class PsWaylandQuickItem(P.PropSheet):
     touch_events_enabled = cast(bool, "prop:Bool")
 
 
-class PsAbstractActionInput(P.PropSheet):
+class PsAbstractActionInput(PropSheet):
     pass
 
 
-class PsAbstractAxisInput(P.PropSheet):
+class PsAbstractAxisInput(PropSheet):
     source_device = "prop:Property"
 
 
-class PsAbstractPhysicalDevice(P.PropSheet):
+class PsAbstractPhysicalDevice(PropSheet):
     pass
 
 
-class PsAction(P.PropSheet):
+class PsAction(PropSheet):
     action = cast(bool, "prop:Bool")
     inputs = cast(list, "prop:List")
     checkable = cast(bool, "prop:Bool")
@@ -1099,16 +1098,16 @@ class PsAction(P.PropSheet):
     object_name = cast(str, "prop:String")
 
 
-class PsActionInput(P.PropSheet):
+class PsActionInput(PropSheet):
     buttons = cast(list, "prop:List")
     source_device = "prop:Property"
 
 
-class PsAnalogAxisInput(P.PropSheet):
+class PsAnalogAxisInput(PropSheet):
     axis = cast(int, "prop:Int")
 
 
-class PsAxis(P.PropSheet):
+class PsAxis(PropSheet):
     buttons = "prop:Property"
     inputs = cast(list, "prop:List")
     scale = cast(float, "prop:Real")
@@ -1116,32 +1115,32 @@ class PsAxis(P.PropSheet):
     velocity = cast(float, "prop:Real")
 
 
-class PsAxisAccumulator(P.PropSheet):
+class PsAxisAccumulator(PropSheet):
     source_axis = "prop:Axis"
     source_axis_type = "prop:Property"
     value = cast(float, "prop:Real")
 
 
-class PsAxisSetting(P.PropSheet):
+class PsAxisSetting(PropSheet):
     axes = cast(list, "prop:List")
     axis = "prop:Property"
     dead_zone_radius = cast(float, "prop:Number")
     smooth = cast(bool, "prop:Bool")
 
 
-class PsButtonAxisInput(P.PropSheet):
+class PsButtonAxisInput(PropSheet):
     acceleration = cast(float, "prop:Real")
     buttons = cast(list, "prop:List")
     deceleration = cast(list, "prop:List")
     scale = cast(float, "prop:Real")
 
 
-class PsInputChord(P.PropSheet):
+class PsInputChord(PropSheet):
     chords = cast(list, "prop:List")
     timeout = cast(int, "prop:Int")
 
 
-class PsInputSequence(P.PropSheet):
+class PsInputSequence(PropSheet):
     button_interval = cast(int, "prop:Int")
     sequences = cast(list, "prop:List")
     timeout = cast(int, "prop:Int")
@@ -1160,7 +1159,7 @@ class PsKeyboardHandler(PsComponent3D):
     source_device = "prop:Property"
 
 
-class PsKeyEvent(P.PropSheet):
+class PsKeyEvent(PropSheet):
     accepted = cast(bool, "prop:Bool")
     count = cast(int, "prop:Int")
     is_auto_repeat = cast(bool, "prop:Bool")
@@ -1170,17 +1169,17 @@ class PsKeyEvent(P.PropSheet):
     text = cast(str, "prop:String")
 
 
-class PsLogicalDevice(P.PropSheet):
+class PsLogicalDevice(PropSheet):
     actions = cast(list, "prop:List")
     axis = cast(list, "prop:List")
 
 
-class PsMouseDevice(P.PropSheet):
+class PsMouseDevice(PropSheet):
     sensitivity = cast(float, "prop:Real")
     update_axes_continuously = cast(bool, "prop:Bool")
 
 
-class PsMouseEvent(P.PropSheet):
+class PsMouseEvent(PropSheet):
     accepted = cast(bool, "prop:Bool")
     button = cast(int, "prop:Enumeration")
     buttons = cast(int, "prop:Int")
@@ -1192,12 +1191,12 @@ class PsMouseEvent(P.PropSheet):
     y = cast(float, "prop:Real")
 
 
-class PsMouseHandler(P.PropSheet):
+class PsMouseHandler(PropSheet):
     contains_mouse = cast(bool, "prop:Bool")
     source_device = "prop:Property"
 
 
-class PsWheelEvent(P.PropSheet):
+class PsWheelEvent(PropSheet):
     accepted = cast(bool, "prop:Bool")
     angle_delta = "prop:Point"
     buttons = cast(int, "prop:Int")
@@ -1208,22 +1207,22 @@ class PsWheelEvent(P.PropSheet):
     y = cast(float, "prop:Real")
 
 
-class PsAbstractClipBlendNode(P.PropSheet):
+class PsAbstractClipBlendNode(PropSheet):
     pass
 
 
-class PsAdditiveClipBlend(P.PropSheet):
+class PsAdditiveClipBlend(PropSheet):
     additive_clip = "prop:Property"
     additive_factor = cast(float, "prop:Real")
     base_clip = "prop:Property"
 
 
-class PsAnimationController(P.PropSheet):
+class PsAnimationController(PropSheet):
     animation = "prop:Property"
     progress = cast(float, "prop:Real")
 
 
-class PsAnimationGroup(P.PropSheet):
+class PsAnimationGroup(PropSheet):
     animations = cast(list, "prop:List")
     duration = cast(float, "prop:Real")
     name_ = cast(str, "prop:String")
@@ -1238,7 +1237,7 @@ class PsClipAnimator(PsAbstractClipAnimator):
     clip = "prop:Var"
 
 
-class PsClipBlendValue(P.PropSheet):
+class PsClipBlendValue(PropSheet):
     clip = "prop:Property"
 
 
@@ -1252,7 +1251,7 @@ class PsKeyframeAnimation(PsAbstractAnimation):
     target_name = cast(str, "prop:String")
 
 
-class PsLerpClipBlend(P.PropSheet):
+class PsLerpClipBlend(PropSheet):
     blend_factor = cast(float, "prop:Real")
     end_clip = "prop:Property"
     start_clip = "prop:Property"
@@ -1268,7 +1267,7 @@ class PsMorphingAnimation(PsAbstractAnimation):
     target_positions = cast(list, "prop:List")
 
 
-class PsMorphTarget(P.PropSheet):
+class PsMorphTarget(PropSheet):
     attribute_names = cast(list, "prop:List")
     attributes = cast(int, "prop:Enumeration")
     object_name = cast(str, "prop:String")
@@ -1283,13 +1282,13 @@ class PsVertexBlendAnimation(PsAbstractAnimation):
     target_positions = cast(list, "prop:List")
 
 
-class PsAbstractRayCaster(P.PropSheet):
+class PsAbstractRayCaster(PropSheet):
     filter_mode = cast(int, "prop:Enumeration")
     hits = "prop:Property"
     run_mode = cast(int, "prop:Enumeration")
 
 
-class PsAbstractTexture(P.PropSheet):
+class PsAbstractTexture(PropSheet):
     handle = "prop:Var"
     handle_type = cast(int, "prop:Enumeration")
 
@@ -1325,7 +1324,7 @@ class PsBlitFramebuffer(PsFrameGraphNode):
     source_rect = "prop:Rect"
 
 
-class PsBufferCapture(P.PropSheet):
+class PsBufferCapture(PropSheet):
     pass
 
 
@@ -1390,7 +1389,7 @@ class PsDepthTest(PsRenderState):
     depth_function = cast(int, "prop:Enumeration")
 
 
-class PsDirectionalLight(P.PropSheet):
+class PsDirectionalLight(PropSheet):
     world_direction = "prop:Vector3D"
     type = cast(int, "prop:Enumeration")
     ambient_color = cast(str, "prop:Color")
@@ -1443,7 +1442,7 @@ class PsDithering(PsRenderState):
     pass
 
 
-class PsEffect(P.PropSheet):
+class PsEffect(PropSheet):
     parameters = cast(list, "prop:List")
     techniques = cast(list, "prop:List")
     child_nodes = cast(list, "prop:List")
@@ -1477,7 +1476,7 @@ class PsEffect(P.PropSheet):
     passes = cast(list, "prop:List")
 
 
-class PsEnvironmentLight(P.PropSheet):
+class PsEnvironmentLight(PropSheet):
     irradiance = "prop:Property"
     specular = "prop:Property"
 
@@ -1550,7 +1549,7 @@ class PsLevelOfDetailSwitch(PsComponent3D):
     current_index = cast(int, "prop:Int")
 
 
-class PsLight(P.PropSheet):
+class PsLight(PropSheet):
     type = cast(int, "prop:Enumeration")
     ambient_color = cast(str, "prop:Color")
     brightness = cast(float, "prop:Real")
@@ -1600,7 +1599,7 @@ class PsMemoryBarrier(PsFrameGraphNode):
     pass
 
 
-class PsMesh(P.PropSheet):
+class PsMesh(PropSheet):
     mesh_name = cast(str, "prop:String")
     source = cast(str, "prop:Url")
     status = cast(int, "prop:Enumeration")
@@ -1622,7 +1621,7 @@ class PsNoPicking(PsFrameGraphNode):
     pass
 
 
-class PsObjectPicker(P.PropSheet):
+class PsObjectPicker(PropSheet):
     contains_mouse = cast(bool, "prop:Bool")
     drag_enabled = cast(bool, "prop:Bool")
     hover_enabled = cast(bool, "prop:Bool")
@@ -1630,12 +1629,12 @@ class PsObjectPicker(P.PropSheet):
     priority = cast(int, "prop:Int")
 
 
-class PsParameter(P.PropSheet):
+class PsParameter(PropSheet):
     name_ = "prop:Property"
     value = "prop:Property"
 
 
-class PsPickEvent(P.PropSheet):
+class PsPickEvent(PropSheet):
     accepted = cast(bool, "prop:Bool")
     button = cast(int, "prop:Int")
     buttons = cast(int, "prop:Int")
@@ -1652,31 +1651,31 @@ class PsPickingProxy(PsComponent3D):
     pass
 
 
-class PsPickingSettings(P.PropSheet):
+class PsPickingSettings(PropSheet):
     face_orientation_picking_mode = cast(int, "prop:Enumeration")
     pick_method = cast(int, "prop:Enumeration")
     pick_result_mode = cast(int, "prop:Enumeration")
     world_space_tolerance = "prop:Property"
 
 
-class PsPickLineEvent(P.PropSheet):
+class PsPickLineEvent(PropSheet):
     triangle_index = "prop:Property"
     vertex1index = "prop:Property"
     vertex2index = "prop:Property"
 
 
-class PsPickPointEvent(P.PropSheet):
+class PsPickPointEvent(PropSheet):
     point_index = "prop:Property"
 
 
-class PsPickTriangleEvent(P.PropSheet):
+class PsPickTriangleEvent(PropSheet):
     triangle_index = "prop:Property"
     vertex1index = "prop:Property"
     vertex2index = "prop:Property"
     vertex3index = "prop:Property"
 
 
-class PsPointLight(P.PropSheet):
+class PsPointLight(PropSheet):
     constant_attenuation = cast(float, "prop:Number")
     linear_attenuation = cast(float, "prop:Number")
     quadratic_attenuation = cast(float, "prop:Number")
@@ -1744,13 +1743,13 @@ class PsRasterMode(PsRenderState):
     raster_mode = cast(int, "prop:Enumeration")
 
 
-class PsRayCaster(P.PropSheet):
+class PsRayCaster(PropSheet):
     direction = "prop:Vector3D"
     length = cast(float, "prop:Real")
     origin = "prop:Vector3D"
 
 
-class PsRenderCapabilities(P.PropSheet):
+class PsRenderCapabilities(PropSheet):
     api = "prop:Property"
     driver_version = "prop:Property"
     extensions = "prop:Property"
@@ -1788,7 +1787,7 @@ class PsRenderCapture(PsFrameGraphNode):
     pass
 
 
-class PsRenderCaptureReply(P.PropSheet):
+class PsRenderCaptureReply(PropSheet):
     capture_id = cast(int, "prop:Int")
     complete = cast(bool, "prop:Bool")
     image = "prop:Property"
@@ -1806,7 +1805,7 @@ class PsRenderPassFilter(PsFrameGraphNode):
     parameters = cast(list, "prop:List")
 
 
-class PsRenderSettings(P.PropSheet):
+class PsRenderSettings(PropSheet):
     active_frame_graph = "prop:Property"
     picking_settings = "prop:Property"
     render_capabilities = "prop:Property"
@@ -1823,7 +1822,7 @@ class PsRenderSurfaceSelector(PsFrameGraphNode):
     surface_pixel_ratio = cast(float, "prop:Real")
 
 
-class PsRenderTarget(P.PropSheet):
+class PsRenderTarget(PropSheet):
     attachments = cast(list, "prop:List")
 
 
@@ -1851,7 +1850,7 @@ class PsScissorTest(PsRenderState):
     width = cast(int, "prop:Int")
 
 
-class PsScreenRayCaster(P.PropSheet):
+class PsScreenRayCaster(PropSheet):
     position = "prop:Point"
 
 
@@ -1859,7 +1858,7 @@ class PsSeamlessCubemap(PsRenderState):
     pass
 
 
-class PsShaderImage(P.PropSheet):
+class PsShaderImage(PropSheet):
     access = cast(int, "prop:Enumeration")
     format = cast(int, "prop:Enumeration")
     layer = cast(int, "prop:Int")
@@ -1867,7 +1866,7 @@ class PsShaderImage(P.PropSheet):
     mip_level = cast(int, "prop:Int")
 
 
-class PsShaderProgram(P.PropSheet):
+class PsShaderProgram(PropSheet):
     compute_shader_code = cast(str, "prop:String")
     compute_shader_graph = cast(str, "prop:String")
     format = cast(int, "prop:Enumeration")
@@ -1885,7 +1884,7 @@ class PsShaderProgram(P.PropSheet):
     vertex_shader_graph = cast(str, "prop:String")
 
 
-class PsShaderProgramBuilder(P.PropSheet):
+class PsShaderProgramBuilder(PropSheet):
     compute_shader_code = cast(str, "prop:String")
     enabled_layers = "prop:Property"
     fragment_shader_code = cast(str, "prop:String")
@@ -1896,7 +1895,7 @@ class PsShaderProgramBuilder(P.PropSheet):
     vertex_shader_code = cast(str, "prop:String")
 
 
-class PsSharedGLTexture(P.PropSheet):
+class PsSharedGLTexture(PropSheet):
     texture_id = cast(int, "prop:Int")
 
 
@@ -1904,7 +1903,7 @@ class PsSortPolicy(PsFrameGraphNode):
     sort_types = cast(list, "prop:List")
 
 
-class PsSpotLight(P.PropSheet):
+class PsSpotLight(PropSheet):
     constant_attenuation = cast(float, "prop:Number")
     cut_off_angle = cast(float, "prop:Number")
     linear_attenuation = cast(float, "prop:Number")
@@ -1989,7 +1988,7 @@ class PsSubtreeEnabler(PsFrameGraphNode):
     enablement = cast(int, "prop:Enumeration")
 
 
-class PsTechnique(P.PropSheet):
+class PsTechnique(PropSheet):
     filter_keys = cast(list, "prop:List")
     graphics_api_filter = "prop:Property"
     parameters = cast(list, "prop:List")
@@ -2001,43 +2000,43 @@ class PsTechniqueFilter(PsFrameGraphNode):
     parameters = cast(list, "prop:List")
 
 
-class PsTexture1D(P.PropSheet):
+class PsTexture1D(PropSheet):
     pass
 
 
-class PsTexture1DArray(P.PropSheet):
+class PsTexture1DArray(PropSheet):
     pass
 
 
-class PsTexture2D(P.PropSheet):
+class PsTexture2D(PropSheet):
     pass
 
 
-class PsTexture2DArray(P.PropSheet):
+class PsTexture2DArray(PropSheet):
     pass
 
 
-class PsTexture2DMultisample(P.PropSheet):
+class PsTexture2DMultisample(PropSheet):
     pass
 
 
-class PsTexture2DMultisampleArray(P.PropSheet):
+class PsTexture2DMultisampleArray(PropSheet):
     pass
 
 
-class PsTexture3D(P.PropSheet):
+class PsTexture3D(PropSheet):
     pass
 
 
-class PsTextureBuffer(P.PropSheet):
+class PsTextureBuffer(PropSheet):
     pass
 
 
-class PsTextureCubeMap(P.PropSheet):
+class PsTextureCubeMap(PropSheet):
     pass
 
 
-class PsTextureCubeMapArray(P.PropSheet):
+class PsTextureCubeMapArray(PropSheet):
     pass
 
 
@@ -2049,12 +2048,12 @@ class PsTextureImage(PsAbstractTextureImage):
     status = cast(int, "prop:Enumeration")
 
 
-class PsTextureLoader(P.PropSheet):
+class PsTextureLoader(PropSheet):
     mirrored = cast(bool, "prop:Bool")
     source = cast(str, "prop:Url")
 
 
-class PsTextureRectangle(P.PropSheet):
+class PsTextureRectangle(PropSheet):
     pass
 
 
@@ -2067,11 +2066,11 @@ class PsArmature(PsComponent3D):
     skeleton = "prop:Property"
 
 
-class PsAttribute(P.PropSheet):
+class PsAttribute(PropSheet):
     pass
 
 
-class PsBuffer(P.PropSheet):
+class PsBuffer(PropSheet):
     buffer_flags = cast(int, "prop:Enumeration")
     format = cast(int, "prop:Enumeration")
     name_ = cast(str, "prop:String")
@@ -2080,7 +2079,7 @@ class PsBuffer(P.PropSheet):
     texture_filter_operation = cast(int, "prop:Enumeration")
 
 
-class PsCoreSettings(P.PropSheet):
+class PsCoreSettings(PropSheet):
     bounding_volumes_enabled = cast(bool, "prop:Bool")
 
 
@@ -2109,7 +2108,7 @@ class PsJoint(PsNode):
     skeleton_root = "prop:Property"
 
 
-class PsNodeInstantiator(P.PropSheet):
+class PsNodeInstantiator(PropSheet):
     active = cast(bool, "prop:Bool")
     asynchronous = cast(bool, "prop:Bool")
     count = cast(int, "prop:Int")
@@ -2130,7 +2129,7 @@ class PsQuaternionAnimation(PsPropertyAnimation):
     type = cast(int, "prop:Enumeration")
 
 
-class PsSkeleton(P.PropSheet):
+class PsSkeleton(PropSheet):
     root_joint = "prop:Property"
     child_nodes = cast(list, "prop:List")
     data = cast(list, "prop:List")
@@ -2167,7 +2166,7 @@ class PsSkeletonLoader(PsAbstractSkeleton):
     status = "prop:Property"
 
 
-class PsTransform(P.PropSheet):
+class PsTransform(PropSheet):
     matrix = "prop:Matrix4x4"
     rotation = "prop:Quaternion"
     rotation_x = cast(float, "prop:Real")
@@ -2205,7 +2204,7 @@ class PsTransform(P.PropSheet):
     object_name = cast(str, "prop:String")
 
 
-class PsConeGeometry(P.PropSheet):
+class PsConeGeometry(PropSheet):
     bottom_radius = cast(float, "prop:Real")
     has_bottom_endcap = cast(bool, "prop:Bool")
     has_top_endcap = cast(bool, "prop:Bool")
@@ -2219,7 +2218,7 @@ class PsConeGeometry(P.PropSheet):
     top_radius = cast(float, "prop:Real")
 
 
-class PsConeGeometryView(P.PropSheet):
+class PsConeGeometryView(PropSheet):
     bottom_radius = cast(float, "prop:Real")
     has_bottom_endcap = cast(bool, "prop:Bool")
     has_top_endcap = cast(bool, "prop:Bool")
@@ -2229,7 +2228,7 @@ class PsConeGeometryView(P.PropSheet):
     top_radius = cast(float, "prop:Real")
 
 
-class PsConeMesh(P.PropSheet):
+class PsConeMesh(PropSheet):
     bottom_radius = cast(float, "prop:Real")
     has_bottom_endcap = cast(bool, "prop:Bool")
     has_top_endcap = cast(bool, "prop:Bool")
@@ -2239,7 +2238,7 @@ class PsConeMesh(P.PropSheet):
     top_radius = cast(float, "prop:Real")
 
 
-class PsCuboidGeometry(P.PropSheet):
+class PsCuboidGeometry(PropSheet):
     index_attribute = "prop:Property"
     normal_attribute = "prop:Property"
     position_attribute = "prop:Property"
@@ -2253,7 +2252,7 @@ class PsCuboidGeometry(P.PropSheet):
     z_extent = cast(float, "prop:Real")
 
 
-class PsCuboidGeometryView(P.PropSheet):
+class PsCuboidGeometryView(PropSheet):
     x_extent = cast(float, "prop:Real")
     xy_mesh_resolution = "prop:Size"
     xz_mesh_resolution = "prop:Size"
@@ -2262,7 +2261,7 @@ class PsCuboidGeometryView(P.PropSheet):
     z_extent = cast(float, "prop:Real")
 
 
-class PsCuboidMesh(P.PropSheet):
+class PsCuboidMesh(PropSheet):
     x_extent = cast(float, "prop:Real")
     xy_mesh_resolution = "prop:Size"
     xz_mesh_resolution = "prop:Size"
@@ -2271,7 +2270,7 @@ class PsCuboidMesh(P.PropSheet):
     z_extent = cast(float, "prop:Real")
 
 
-class PsCylinderGeometry(P.PropSheet):
+class PsCylinderGeometry(PropSheet):
     index_attribute = "prop:Property"
     length = cast(float, "prop:Real")
     normal_attribute = "prop:Property"
@@ -2282,14 +2281,14 @@ class PsCylinderGeometry(P.PropSheet):
     tex_coord_attribute = "prop:Property"
 
 
-class PsCylinderGeometryView(P.PropSheet):
+class PsCylinderGeometryView(PropSheet):
     length = cast(float, "prop:Real")
     radius = cast(float, "prop:Real")
     rings = cast(int, "prop:Int")
     slices = cast(int, "prop:Int")
 
 
-class PsCylinderMesh(P.PropSheet):
+class PsCylinderMesh(PropSheet):
     length = cast(float, "prop:Real")
     radius = cast(float, "prop:Real")
     rings = cast(int, "prop:Int")
@@ -2312,7 +2311,7 @@ class PsDiffuseSpecularMapMaterial(PsMaterial):
     texture_scale = cast(float, "prop:Real")
 
 
-class PsDiffuseSpecularMaterial(P.PropSheet):
+class PsDiffuseSpecularMaterial(PropSheet):
     alpha_blending = cast(bool, "prop:Bool")
     ambient = cast(str, "prop:Color")
     diffuse = "prop:Var"
@@ -2322,7 +2321,7 @@ class PsDiffuseSpecularMaterial(P.PropSheet):
     texture_scale = cast(float, "prop:Real")
 
 
-class PsExtrudedTextGeometry(P.PropSheet):
+class PsExtrudedTextGeometry(PropSheet):
     depth = cast(float, "prop:Number")
     font = "prop:Property"
     index_attribute = "prop:Property"
@@ -2331,7 +2330,7 @@ class PsExtrudedTextGeometry(P.PropSheet):
     text = "prop:Property"
 
 
-class PsExtrudedTextMesh(P.PropSheet):
+class PsExtrudedTextMesh(PropSheet):
     depth = cast(float, "prop:Number")
     font = "prop:Property"
     text = "prop:Property"
@@ -2345,7 +2344,7 @@ class PsFirstPersonCameraController(PsEntity):
     look_speed = cast(float, "prop:Real")
 
 
-class PsForwardRenderer(P.PropSheet):
+class PsForwardRenderer(PropSheet):
     buffers_to_clear = cast(str, "prop:Color")
     camera = "prop:Property"
     clear_color = cast(str, "prop:Color")
@@ -2367,7 +2366,7 @@ class PsGoochMaterial(PsMaterial):
     warm = cast(str, "prop:Color")
 
 
-class PsMetalRoughMaterial(P.PropSheet):
+class PsMetalRoughMaterial(PropSheet):
     ambient_occlusion = "prop:Property"
     base_color = "prop:Property"
     metalness = "prop:Property"
@@ -2434,7 +2433,7 @@ class PsPhongMaterial(PsMaterial):
     specular = cast(str, "prop:Color")
 
 
-class PsPlaneGeometry(P.PropSheet):
+class PsPlaneGeometry(PropSheet):
     height = cast(float, "prop:Real")
     index_attribute = "prop:Property"
     mirrored = cast(bool, "prop:Bool")
@@ -2446,25 +2445,25 @@ class PsPlaneGeometry(P.PropSheet):
     width = cast(float, "prop:Real")
 
 
-class PsPlaneGeometryView(P.PropSheet):
+class PsPlaneGeometryView(PropSheet):
     height = cast(float, "prop:Real")
     mesh_resolution = "prop:Size"
     mirrored = cast(bool, "prop:Bool")
     width = cast(float, "prop:Real")
 
 
-class PsPlaneMesh(P.PropSheet):
+class PsPlaneMesh(PropSheet):
     height = cast(float, "prop:Real")
     mesh_resolution = "prop:Size"
     mirrored = cast(bool, "prop:Bool")
     width = cast(float, "prop:Real")
 
 
-class PsSkyboxEntity(P.PropSheet):
+class PsSkyboxEntity(PropSheet):
     pass
 
 
-class PsSphereGeometry(P.PropSheet):
+class PsSphereGeometry(PropSheet):
     generate_tangents = cast(bool, "prop:Bool")
     index_attribute = "prop:Property"
     normal_attribute = "prop:Property"
@@ -2476,21 +2475,21 @@ class PsSphereGeometry(P.PropSheet):
     tex_coord_attribute = "prop:Property"
 
 
-class PsSphereGeometryView(P.PropSheet):
+class PsSphereGeometryView(PropSheet):
     generate_tangents = cast(bool, "prop:Bool")
     radius = cast(float, "prop:Real")
     rings = cast(int, "prop:Int")
     slices = cast(int, "prop:Int")
 
 
-class PsSphereMesh(P.PropSheet):
+class PsSphereMesh(PropSheet):
     generate_tangents = cast(bool, "prop:Bool")
     radius = cast(float, "prop:Real")
     rings = cast(int, "prop:Int")
     slices = cast(int, "prop:Int")
 
 
-class PsText2DEntity(P.PropSheet):
+class PsText2DEntity(PropSheet):
     color = "prop:Property"
     font = "prop:Property"
     height = cast(float, "prop:Number")
@@ -2498,7 +2497,7 @@ class PsText2DEntity(P.PropSheet):
     width = cast(float, "prop:Number")
 
 
-class PsTorusGeometry(P.PropSheet):
+class PsTorusGeometry(PropSheet):
     index_attribute = "prop:Property"
     minor_radius = cast(float, "prop:Real")
     normal_attribute = "prop:Property"
@@ -2509,14 +2508,14 @@ class PsTorusGeometry(P.PropSheet):
     tex_coord_attribute = "prop:Property"
 
 
-class PsTorusGeometryView(P.PropSheet):
+class PsTorusGeometryView(PropSheet):
     minor_radius = cast(float, "prop:Real")
     radius = cast(float, "prop:Real")
     rings = cast(int, "prop:Int")
     slices = cast(int, "prop:Int")
 
 
-class PsTorusMesh(P.PropSheet):
+class PsTorusMesh(PropSheet):
     minor_radius = cast(float, "prop:Real")
     radius = cast(float, "prop:Real")
     rings = cast(int, "prop:Int")
@@ -2527,7 +2526,7 @@ class PsFrameAction(PsComponent3D):
     pass
 
 
-class PsScene2D(P.PropSheet):
+class PsScene2D(PropSheet):
     entities = cast(list, "prop:List")
     item = "prop:Property"
     mouse_enabled = cast(bool, "prop:Bool")
@@ -2576,7 +2575,7 @@ class PsBarSeries(PsAbstractBarSeries):
     pass
 
 
-class PsBarSet(P.PropSheet):
+class PsBarSet(PropSheet):
     border_color = cast(str, "prop:Color")
     border_width = cast(float, "prop:Real")
     brush_filename = cast(str, "prop:String")
@@ -2599,7 +2598,7 @@ class PsBoxPlotSeries(PsAbstractSeries):
     count = cast(int, "prop:Int")
 
 
-class PsBoxSet(P.PropSheet):
+class PsBoxSet(PropSheet):
     brush_filename = cast(str, "prop:String")
     count = cast(int, "prop:Int")
     label = cast(str, "prop:String")
@@ -2623,7 +2622,7 @@ class PsCandlestickSeries(PsAbstractSeries):
     minimum_column_width = cast(float, "prop:Real")
 
 
-class PsCandlestickSet(P.PropSheet):
+class PsCandlestickSet(PropSheet):
     brush_filename = cast(str, "prop:String")
     close = cast(float, "prop:Real")
     high = cast(float, "prop:Real")
@@ -2639,7 +2638,7 @@ class PsCategoryAxis(PsAbstractAxis):
     start_value = cast(int, "prop:Int")
 
 
-class PsCategoryRange(P.PropSheet):
+class PsCategoryRange(PropSheet):
     end_value = cast(int, "prop:Int")
     label = cast(str, "prop:String")
 
@@ -2651,7 +2650,7 @@ class PsDateTimeAxis(PsAbstractAxis):
     tick_count = cast(int, "prop:Int")
 
 
-class PsHBarModelMapper(P.PropSheet):
+class PsHBarModelMapper(PropSheet):
     column_count = cast(int, "prop:Int")
     first_bar_set_row = cast(int, "prop:Int")
     first_column = cast(int, "prop:Int")
@@ -2660,7 +2659,7 @@ class PsHBarModelMapper(P.PropSheet):
     series = "prop:Property"
 
 
-class PsHBoxPlotModelMapper(P.PropSheet):
+class PsHBoxPlotModelMapper(PropSheet):
     column_count = cast(int, "prop:Int")
     first_box_set_row = cast(int, "prop:Int")
     first_column = cast(int, "prop:Int")
@@ -2669,7 +2668,7 @@ class PsHBoxPlotModelMapper(P.PropSheet):
     series = "prop:Property"
 
 
-class PsHCandlestickModelMapper(P.PropSheet):
+class PsHCandlestickModelMapper(PropSheet):
     close_column = cast(int, "prop:Int")
     first_set_row = cast(int, "prop:Int")
     high_column = cast(int, "prop:Int")
@@ -2693,7 +2692,7 @@ class PsHorizontalStackedBarSeries(PsAbstractBarSeries):
     pass
 
 
-class PsHPieModelMapper(P.PropSheet):
+class PsHPieModelMapper(PropSheet):
     column_count = cast(int, "prop:Int")
     first_column = cast(int, "prop:Int")
     labels_row = cast(int, "prop:Int")
@@ -2702,7 +2701,7 @@ class PsHPieModelMapper(P.PropSheet):
     values_row = cast(int, "prop:Int")
 
 
-class PsHXYModelMapper(P.PropSheet):
+class PsHXYModelMapper(PropSheet):
     column_count = cast(int, "prop:Int")
     first_column = cast(int, "prop:Int")
     model = "prop:Property"
@@ -2711,7 +2710,7 @@ class PsHXYModelMapper(P.PropSheet):
     y_row = cast(int, "prop:Int")
 
 
-class PsLegend(P.PropSheet):
+class PsLegend(PropSheet):
     alignment = "prop:Property"
     background_visible = cast(bool, "prop:Bool")
     border_color = cast(str, "prop:Color")
@@ -2740,7 +2739,7 @@ class PsLogValueAxis(PsAbstractAxis):
     tick_count = cast(int, "prop:Int")
 
 
-class PsMargins(P.PropSheet):
+class PsMargins(PropSheet):
     bottom = cast(int, "prop:Int")
     left = cast(int, "prop:Int")
     right = cast(int, "prop:Int")
@@ -2762,7 +2761,7 @@ class PsPieSeries(PsAbstractSeries):
     vertical_position = cast(float, "prop:Real")
 
 
-class PsPieSlice(P.PropSheet):
+class PsPieSlice(PropSheet):
     angle_span = cast(float, "prop:Real")
     border_color = cast(str, "prop:Color")
     border_width = cast(int, "prop:Int")
@@ -2817,7 +2816,7 @@ class PsValueAxis(PsAbstractAxis):
     tick_type = cast(int, "prop:Enumeration")
 
 
-class PsVBarModelMapper(P.PropSheet):
+class PsVBarModelMapper(PropSheet):
     first_bar_set_column = cast(int, "prop:Int")
     first_row = cast(int, "prop:Int")
     last_bar_set_column = cast(int, "prop:Int")
@@ -2826,7 +2825,7 @@ class PsVBarModelMapper(P.PropSheet):
     series = "prop:Property"
 
 
-class PsVBoxPlotModelMapper(P.PropSheet):
+class PsVBoxPlotModelMapper(PropSheet):
     first_box_set_column = cast(int, "prop:Int")
     first_row = cast(int, "prop:Int")
     last_box_set_column = cast(int, "prop:Int")
@@ -2835,7 +2834,7 @@ class PsVBoxPlotModelMapper(P.PropSheet):
     series = "prop:Property"
 
 
-class PsVCandlestickModelMapper(P.PropSheet):
+class PsVCandlestickModelMapper(PropSheet):
     close_row = cast(int, "prop:Int")
     first_set_column = cast(int, "prop:Int")
     high_row = cast(int, "prop:Int")
@@ -2847,7 +2846,7 @@ class PsVCandlestickModelMapper(P.PropSheet):
     timestamp_row = cast(int, "prop:Int")
 
 
-class PsVPieModelMapper(P.PropSheet):
+class PsVPieModelMapper(PropSheet):
     first_row = cast(int, "prop:Int")
     labels_column = cast(int, "prop:Int")
     model = "prop:Property"
@@ -2856,7 +2855,7 @@ class PsVPieModelMapper(P.PropSheet):
     values_column = cast(int, "prop:Int")
 
 
-class PsVXYModelMapper(P.PropSheet):
+class PsVXYModelMapper(PropSheet):
     first_row = cast(int, "prop:Int")
     model = "prop:Property"
     row_count = cast(int, "prop:Int")
@@ -2865,7 +2864,7 @@ class PsVXYModelMapper(P.PropSheet):
     y_column = cast(int, "prop:Int")
 
 
-class PsXYPoint(P.PropSheet):
+class PsXYPoint(PropSheet):
     x = cast(float, "prop:Real")
     y = cast(float, "prop:Real")
 
@@ -2999,7 +2998,7 @@ class PsLabel(PsText):
     top_inset = cast(float, "prop:Real")
 
 
-class PsMenu(P.PropSheet):
+class PsMenu(PropSheet):
     cascade = cast(bool, "prop:Bool")
     content_data = cast(list, "prop:List")
     content_model = "prop:Property"
@@ -3074,7 +3073,7 @@ class PsMenu(P.PropSheet):
     type = cast(int, "prop:Enumeration")
 
 
-class PsMenuBar(P.PropSheet):
+class PsMenuBar(PropSheet):
     content_height = cast(float, "prop:Real")
     content_width = cast(float, "prop:Real")
     delegate = "prop:Property"
@@ -3157,7 +3156,7 @@ class PsMenuBarItem(PsAbstractButton):
     menu_bar = "prop:Property"
 
 
-class PsMenuItem(P.PropSheet):
+class PsMenuItem(PropSheet):
     arrow = "prop:Property"
     highlighted = cast(bool, "prop:Bool")
     menu = "prop:Property"
@@ -3248,7 +3247,7 @@ class PsMenuItem(P.PropSheet):
     shortcut = "prop:Property"
 
 
-class PsMenuSeparator(P.PropSheet):
+class PsMenuSeparator(PropSheet):
     available_height = cast(float, "prop:Real")
     available_width = cast(float, "prop:Real")
     background = "prop:Property"
@@ -3587,7 +3586,7 @@ class PsVerticalHeaderView(PsTableView):
     text_role = "prop:Property"
 
 
-class PsAccessible(P.PropSheet):
+class PsAccessible(PropSheet):
     check_state_mixed = cast(bool, "prop:Bool")
     checkable = cast(bool, "prop:Bool")
     checked = cast(bool, "prop:Bool")
@@ -3615,7 +3614,7 @@ class PsAnchorAnimation(PsAnimation):
     targets = cast(list, "prop:List")
 
 
-class PsAnchorChanges(P.PropSheet):
+class PsAnchorChanges(PropSheet):
     anchors = "prop:Anchors"
     target = "prop:Property"
 
@@ -3648,7 +3647,7 @@ class PsAnimatedSprite(PsItem):
     source = cast(str, "prop:Url")
 
 
-class PsBehavior(P.PropSheet):
+class PsBehavior(PropSheet):
     animation = "prop:Property"
     enabled = cast(bool, "prop:Bool")
     target_property = "prop:Property"
@@ -3671,24 +3670,24 @@ class PsBorderImage(PsItem):
     vertical_tile_mode = cast(int, "prop:Enumeration")
 
 
-class PsBorderImageMesh(P.PropSheet):
+class PsBorderImageMesh(PropSheet):
     border = "prop:Border"
     horizontal_tile_mode = cast(int, "prop:Enumeration")
     size = "prop:Size"
     vertical_tile_mode = cast(int, "prop:Enumeration")
 
 
-class PsCanvasGradient(P.PropSheet):
+class PsCanvasGradient(PropSheet):
     pass
 
 
-class PsCanvasImageData(P.PropSheet):
+class PsCanvasImageData(PropSheet):
     data = "prop:Property"
     height = cast(int, "prop:Int")
     width = cast(int, "prop:Int")
 
 
-class PsCanvasPixelArray(P.PropSheet):
+class PsCanvasPixelArray(PropSheet):
     length = cast(int, "prop:Int")
 
 
@@ -3731,7 +3730,7 @@ class PsColumn(PsItem):
     top_padding = cast(float, "prop:Real")
 
 
-class PsContext2D(P.PropSheet):
+class PsContext2D(PropSheet):
     canvas = "prop:Property"
     fill_rule = cast(int, "prop:Enumeration")
     fill_style = "prop:Property"
@@ -3752,7 +3751,7 @@ class PsContext2D(P.PropSheet):
     text_baseline = cast(str, "prop:String")
 
 
-class PsDoubleValidator(P.PropSheet):
+class PsDoubleValidator(PropSheet):
     bottom = cast(float, "prop:Real")
     decimals = cast(int, "prop:Int")
     locale = cast(str, "prop:String")
@@ -3760,11 +3759,11 @@ class PsDoubleValidator(P.PropSheet):
     top = cast(float, "prop:Real")
 
 
-class PsDrag(P.PropSheet):
+class PsDrag(PropSheet):
     pass
 
 
-class PsDragEvent(P.PropSheet):
+class PsDragEvent(PropSheet):
     accepted = cast(bool, "prop:Bool")
     action = cast(int, "prop:Enumeration")
     color_data = cast(str, "prop:Color")
@@ -3807,7 +3806,7 @@ class PsDropArea(PsItem):
     keys = "prop:Property"
 
 
-class PsEnterKey(P.PropSheet):
+class PsEnterKey(PropSheet):
     action_id = cast(int, "prop:Int")
     active = cast(bool, "prop:Bool")
     alternative_keys = "prop:Var"
@@ -3891,14 +3890,14 @@ class PsFocusScope(PsItem):
     pass
 
 
-class PsFontLoader(P.PropSheet):
+class PsFontLoader(PropSheet):
     font = "prop:Font"
     name_ = cast(str, "prop:String")
     source = cast(str, "prop:Url")
     status = cast(int, "prop:Enumeration")
 
 
-class PsFontMetrics(P.PropSheet):
+class PsFontMetrics(PropSheet):
     ascent = cast(float, "prop:Real")
     average_character_width = cast(float, "prop:Real")
     descent = cast(float, "prop:Real")
@@ -3916,17 +3915,17 @@ class PsFontMetrics(P.PropSheet):
     x_height = cast(float, "prop:Real")
 
 
-class PsGestureEvent(P.PropSheet):
+class PsGestureEvent(PropSheet):
     drag_threshold = cast(float, "prop:Real")
     touch_points = cast(list, "prop:List")
 
 
-class PsGradientStop(P.PropSheet):
+class PsGradientStop(PropSheet):
     color = cast(str, "prop:Color")
     position = cast(float, "prop:Real")
 
 
-class PsGraphicsInfo(P.PropSheet):
+class PsGraphicsInfo(PropSheet):
     api = cast(int, "prop:Enumeration")
     major_version = cast(int, "prop:Int")
     minor_version = cast(int, "prop:Int")
@@ -3959,7 +3958,7 @@ class PsGrid(PsItem):
     vertical_item_alignment = cast(int, "prop:Enumeration")
 
 
-class PsGridMesh(P.PropSheet):
+class PsGridMesh(PropSheet):
     resolution = "prop:Size"
 
 
@@ -4002,7 +4001,7 @@ class PsGridView(PsFlickable):
     vertical_layout_direction = cast(int, "prop:Enumeration")
 
 
-class PsHandlerPoint(P.PropSheet):
+class PsHandlerPoint(PropSheet):
     ellipse_diameters = "prop:Size"
     id = cast(int, "prop:Int")
     modifiers = cast(int, "prop:Enumeration")
@@ -4035,7 +4034,7 @@ class PsHoverHandler(PsSinglePointHandler):
     target = "prop:Property"
 
 
-class PsIntValidator(P.PropSheet):
+class PsIntValidator(PropSheet):
     bottom = cast(int, "prop:Int")
     locale = cast(str, "prop:String")
     top = cast(int, "prop:Int")
@@ -4046,17 +4045,17 @@ class PsItemGrabResult(PsQtObject):
     url = cast(str, "prop:Url")
 
 
-class PsKeyNavigation(P.PropSheet):
+class PsKeyNavigation(PropSheet):
     pass
 
 
-class PsKeys(P.PropSheet):
+class PsKeys(PropSheet):
     enabled = cast(bool, "prop:Bool")
     forward_to = cast(list, "prop:List")
     priority = cast(int, "prop:Enumeration")
 
 
-class PsLayoutMirroring(P.PropSheet):
+class PsLayoutMirroring(PropSheet):
     children_inherit = cast(bool, "prop:Bool")
     enabled = cast(bool, "prop:Bool")
 
@@ -4107,7 +4106,7 @@ class PsListView(PsFlickable):
     vertical_layout_direction = cast(int, "prop:Enumeration")
 
 
-class PsMatrix4x4(P.PropSheet):
+class PsMatrix4x4(PropSheet):
     matrix = "prop:Property"
 
 
@@ -4133,7 +4132,7 @@ class PsOpacityAnimator(PsAnimator):
     pass
 
 
-class PsPalette(P.PropSheet):
+class PsPalette(PropSheet):
     active = "prop:Property"
     disabled = "prop:Property"
     inactive = "prop:Property"
@@ -4149,7 +4148,7 @@ class PsParentAnimation(PsAnimation):
     via = "prop:Property"
 
 
-class PsParentChange(P.PropSheet):
+class PsParentChange(PropSheet):
     height = cast(float, "prop:Real")
     parent = "prop:Property"
     rotation = cast(float, "prop:Real")
@@ -4160,7 +4159,7 @@ class PsParentChange(P.PropSheet):
     y = cast(float, "prop:Real")
 
 
-class PsPathAngleArc(P.PropSheet):
+class PsPathAngleArc(PropSheet):
     center_x = cast(float, "prop:Real")
     center_y = cast(float, "prop:Real")
     move_to_start = cast(bool, "prop:Bool")
@@ -4182,7 +4181,7 @@ class PsPathAnimation(PsAnimation):
     target = "prop:Property"
 
 
-class PsPathArc(P.PropSheet):
+class PsPathArc(PropSheet):
     direction = cast(int, "prop:Enumeration")
     radius_x = cast(float, "prop:Real")
     radius_y = cast(float, "prop:Real")
@@ -4194,12 +4193,12 @@ class PsPathArc(P.PropSheet):
     y = cast(float, "prop:Real")
 
 
-class PsPathAttribute(P.PropSheet):
+class PsPathAttribute(PropSheet):
     name_ = cast(str, "prop:String")
     value = cast(float, "prop:Real")
 
 
-class PsPathCubic(P.PropSheet):
+class PsPathCubic(PropSheet):
     control1x = cast(float, "prop:Real")
     control1y = cast(float, "prop:Real")
     control2x = cast(float, "prop:Real")
@@ -4214,18 +4213,18 @@ class PsPathCubic(P.PropSheet):
     y = cast(float, "prop:Real")
 
 
-class PsPathCurve(P.PropSheet):
+class PsPathCurve(PropSheet):
     relative_x = cast(float, "prop:Real")
     relative_y = cast(float, "prop:Real")
     x = cast(float, "prop:Real")
     y = cast(float, "prop:Real")
 
 
-class PsPathElement(P.PropSheet):
+class PsPathElement(PropSheet):
     pass
 
 
-class PsPathInterpolator(P.PropSheet):
+class PsPathInterpolator(PropSheet):
     angle = cast(float, "prop:Real")
     path = "prop:Property"
     progress = cast(float, "prop:Real")
@@ -4233,35 +4232,35 @@ class PsPathInterpolator(P.PropSheet):
     y = cast(float, "prop:Real")
 
 
-class PsPathLine(P.PropSheet):
+class PsPathLine(PropSheet):
     relative_x = cast(float, "prop:Real")
     relative_y = cast(float, "prop:Real")
     x = cast(float, "prop:Real")
     y = cast(float, "prop:Real")
 
 
-class PsPathMove(P.PropSheet):
+class PsPathMove(PropSheet):
     relative_x = cast(float, "prop:Real")
     relative_y = cast(float, "prop:Real")
     x = cast(float, "prop:Real")
     y = cast(float, "prop:Real")
 
 
-class PsPathMultiline(P.PropSheet):
+class PsPathMultiline(PropSheet):
     paths = cast(list, "prop:List")
     start = "prop:Point"
 
 
-class PsPathPercent(P.PropSheet):
+class PsPathPercent(PropSheet):
     value = cast(float, "prop:Real")
 
 
-class PsPathPolyline(P.PropSheet):
+class PsPathPolyline(PropSheet):
     path = cast(list, "prop:List")
     start = "prop:Point"
 
 
-class PsPathQuad(P.PropSheet):
+class PsPathQuad(PropSheet):
     control_x = cast(float, "prop:Real")
     control_y = cast(float, "prop:Real")
     relative_control_x = cast(float, "prop:Real")
@@ -4272,11 +4271,11 @@ class PsPathQuad(P.PropSheet):
     y = cast(float, "prop:Real")
 
 
-class PsPathSvg(P.PropSheet):
+class PsPathSvg(PropSheet):
     path = cast(str, "prop:String")
 
 
-class PsPathText(P.PropSheet):
+class PsPathText(PropSheet):
     text = cast(str, "prop:String")
     x = cast(float, "prop:Real")
     y = cast(float, "prop:Real")
@@ -4318,7 +4317,7 @@ class PsPinchArea(PsItem):
     pinch = "prop:Pinch"
 
 
-class PsPinchEvent(P.PropSheet):
+class PsPinchEvent(PropSheet):
     accepted = cast(bool, "prop:Bool")
     angle = cast(float, "prop:Real")
     center = "prop:Property"
@@ -4377,7 +4376,7 @@ class PsPointHandler(PsSinglePointHandler):
     target = "prop:Property"
 
 
-class PsPositioner(P.PropSheet):
+class PsPositioner(PropSheet):
     pass
 
 
@@ -4390,13 +4389,13 @@ class PsPropertyAction(PsAnimation):
     value = "prop:Property"
 
 
-class PsPropertyChanges(P.PropSheet):
+class PsPropertyChanges(PropSheet):
     explicit = cast(bool, "prop:Bool")
     restore_entry_values = cast(bool, "prop:Bool")
     target = "prop:Property"
 
 
-class PsRegularExpressionValidator(P.PropSheet):
+class PsRegularExpressionValidator(PropSheet):
     regular_expression = "prop:Property"
 
 
@@ -4406,7 +4405,7 @@ class PsRepeater(PsItem):
     model = "prop:Property"
 
 
-class PsRotation(P.PropSheet):
+class PsRotation(PropSheet):
     angle = cast(float, "prop:Real")
     axis = "prop:Axis"
     origin = "prop:Origin"
@@ -4436,7 +4435,7 @@ class PsRow(PsItem):
     top_padding = cast(float, "prop:Real")
 
 
-class PsScale(P.PropSheet):
+class PsScale(PropSheet):
     origin = "prop:Origin"
     x_scale = cast(float, "prop:Real")
     y_scale = cast(float, "prop:Real")
@@ -4480,7 +4479,7 @@ class PsShaderEffectSource(PsItem):
     wrap_mode = cast(int, "prop:Enumeration")
 
 
-class PsShortcut(P.PropSheet):
+class PsShortcut(PropSheet):
     auto_repeat = cast(bool, "prop:Bool")
     context = cast(int, "prop:Enumeration")
     enabled = cast(bool, "prop:Bool")
@@ -4506,7 +4505,7 @@ class PsSpringAnimation(PsNumberAnimation):
     velocity = cast(float, "prop:Real")
 
 
-class PsSprite(P.PropSheet):
+class PsSprite(PropSheet):
     duration = cast(int, "prop:Int")
     duration_variation = cast(int, "prop:Int")
     frame_count = cast(int, "prop:Int")
@@ -4534,25 +4533,25 @@ class PsSpriteSequence(PsItem):
     sprites = cast(list, "prop:List")
 
 
-class PsState(P.PropSheet):
+class PsState(PropSheet):
     changes = cast(list, "prop:List")
     extend = cast(str, "prop:String")
     name_ = cast(str, "prop:String")
     when = cast(bool, "prop:Bool")
 
 
-class PsStateChangeScript(P.PropSheet):
+class PsStateChangeScript(PropSheet):
     name_ = cast(str, "prop:String")
     script = "prop:Property"
 
 
-class PsStateGroup(P.PropSheet):
+class PsStateGroup(PropSheet):
     state = cast(str, "prop:String")
     states = cast(list, "prop:List")
     transitions = cast(list, "prop:List")
 
 
-class PsSystemPalette(P.PropSheet):
+class PsSystemPalette(PropSheet):
     alternate_base = cast(str, "prop:Color")
     base = cast(str, "prop:Color")
     button = cast(str, "prop:Color")
@@ -4591,7 +4590,7 @@ class PsTapHandler(PsSinglePointHandler):
     time_held = cast(float, "prop:Real")
 
 
-class PsTextMetrics(P.PropSheet):
+class PsTextMetrics(PropSheet):
     advance_width = cast(float, "prop:Real")
     bounding_rect = "prop:Rect"
     elide = cast(int, "prop:Enumeration")
@@ -4604,7 +4603,7 @@ class PsTextMetrics(P.PropSheet):
     width = cast(float, "prop:Real")
 
 
-class PsTouchPoint(P.PropSheet):
+class PsTouchPoint(PropSheet):
     ellipse_diameters = "prop:Size"
     point_id = cast(int, "prop:Int")
     pressed = cast(bool, "prop:Bool")
@@ -4622,7 +4621,7 @@ class PsTouchPoint(P.PropSheet):
     y = cast(float, "prop:Real")
 
 
-class PsTransition(P.PropSheet):
+class PsTransition(PropSheet):
     animations = cast(list, "prop:List")
     enabled = cast(bool, "prop:Bool")
     from_ = cast(str, "prop:String")
@@ -4631,7 +4630,7 @@ class PsTransition(P.PropSheet):
     to = cast(str, "prop:String")
 
 
-class PsTranslate(P.PropSheet):
+class PsTranslate(PropSheet):
     x = cast(float, "prop:Real")
     y = cast(float, "prop:Real")
 
@@ -4645,7 +4644,7 @@ class PsVector3dAnimation(PsPropertyAnimation):
     to = "prop:Vector3D"
 
 
-class PsViewTransition(P.PropSheet):
+class PsViewTransition(PropSheet):
     pass
 
 
@@ -4706,7 +4705,7 @@ class PsEllipseShape(PsShape):
     fill = cast(bool, "prop:Bool")
 
 
-class PsEmitter(P.PropSheet):
+class PsEmitter(PropSheet):
     acceleration = "prop:Property"
     emit_rate = cast(float, "prop:Real")
     enabled = cast(bool, "prop:Bool")
@@ -4777,7 +4776,7 @@ class PsMaskShape(PsShape):
     source = cast(str, "prop:Url")
 
 
-class PsParticle(P.PropSheet):
+class PsParticle(PropSheet):
     alpha = cast(float, "prop:Real")
     auto_rotate = cast(bool, "prop:Bool")
     ax = cast(float, "prop:Real")
@@ -4810,11 +4809,11 @@ class PsParticle(P.PropSheet):
     y_deformation_vector_y = cast(float, "prop:Real")
 
 
-class PsParticleExtruder(P.PropSheet):
+class PsParticleExtruder(PropSheet):
     pass
 
 
-class PsParticleGroup(P.PropSheet):
+class PsParticleGroup(PropSheet):
     duration = cast(int, "prop:Int")
     duration_variation = "prop:Property"
     name_ = cast(str, "prop:String")
@@ -4822,7 +4821,7 @@ class PsParticleGroup(P.PropSheet):
     to = "prop:Property"
 
 
-class PsParticleSystem(P.PropSheet):
+class PsParticleSystem(PropSheet):
     empty = cast(bool, "prop:Bool")
     particle_states = cast(list, "prop:List")
     paused = cast(bool, "prop:Bool")
@@ -4836,7 +4835,7 @@ class PsPointDirection(PsDirection):
     y_variation = cast(float, "prop:Real")
 
 
-class PsRectangleShape(P.PropSheet):
+class PsRectangleShape(PropSheet):
     pass
 
 
@@ -4856,7 +4855,7 @@ class PsTargetDirection(PsDirection):
     target_y = cast(float, "prop:Real")
 
 
-class PsTrailEmitter(P.PropSheet):
+class PsTrailEmitter(PropSheet):
     emit_height = cast(float, "prop:Real")
     emit_rate_per_particle = cast(float, "prop:Real")
     emit_shape = "prop:Property"
@@ -4877,7 +4876,7 @@ class PsWander(PsAffector):
     y_variance = cast(float, "prop:Real")
 
 
-class PsBoundaryRule(P.PropSheet):
+class PsBoundaryRule(PropSheet):
     current_overshoot = "prop:Property"
     easing = "prop:Property"
     enabled = cast(bool, "prop:Bool")
@@ -4900,7 +4899,7 @@ class PsGridLayout(PsItem):
     rows = cast(int, "prop:Int")
 
 
-class PsLayout(P.PropSheet):
+class PsLayout(PropSheet):
     pass
 
 
@@ -4945,7 +4944,7 @@ class PsShapePath(PsPath):
     stroke_width = cast(float, "prop:Real")
 
 
-class PsFolderListModel(P.PropSheet):
+class PsFolderListModel(PropSheet):
     case_sensitive = cast(bool, "prop:Bool")
     count = cast(int, "prop:Int")
     folder = cast(str, "prop:Url")
@@ -4964,58 +4963,58 @@ class PsFolderListModel(P.PropSheet):
     status = cast(int, "prop:Enumeration")
 
 
-class PsSettings(P.PropSheet):
+class PsSettings(PropSheet):
     category = cast(str, "prop:String")
     file_name = cast(str, "prop:String")
 
 
-class PsWavefrontMesh(P.PropSheet):
+class PsWavefrontMesh(PropSheet):
     last_error = cast(int, "prop:Enumeration")
     projection_plane_v = "prop:Vector3D"
     projection_plane_w = "prop:Vector3D"
     source = cast(str, "prop:Url")
 
 
-class PsAdditiveColorGradient(P.PropSheet):
+class PsAdditiveColorGradient(PropSheet):
     bottom_color = "prop:Vector3D"
     top_color = "prop:Vector3D"
 
 
-class PsBlur(P.PropSheet):
+class PsBlur(PropSheet):
     amount = cast(float, "prop:Real")
 
 
-class PsBrushStrokes(P.PropSheet):
+class PsBrushStrokes(PropSheet):
     brush_angle = cast(float, "prop:Real")
     brush_length = cast(float, "prop:Real")
     brush_size = cast(float, "prop:Real")
     noise_sample = "prop:Property"
 
 
-class PsChromaticAberration(P.PropSheet):
+class PsChromaticAberration(PropSheet):
     aberration_amount = cast(float, "prop:Real")
     focus_depth = cast(float, "prop:Real")
     mask_texture = "prop:Property"
 
 
-class PsColorMaster(P.PropSheet):
+class PsColorMaster(PropSheet):
     blue_strength = cast(float, "prop:Real")
     green_strength = cast(float, "prop:Real")
     red_strength = cast(float, "prop:Real")
     saturation = cast(float, "prop:Real")
 
 
-class PsDepthOfFieldHQBlur(P.PropSheet):
+class PsDepthOfFieldHQBlur(PropSheet):
     blur_amount = cast(float, "prop:Real")
     focus_distance = cast(float, "prop:Real")
     focus_range = cast(float, "prop:Real")
 
 
-class PsDesaturate(P.PropSheet):
+class PsDesaturate(PropSheet):
     amount = cast(float, "prop:Real")
 
 
-class PsDistortionRipple(P.PropSheet):
+class PsDistortionRipple(PropSheet):
     center = "prop:Vector2D"
     distortion_height = cast(float, "prop:Real")
     distortion_phase = cast(float, "prop:Real")
@@ -5023,40 +5022,40 @@ class PsDistortionRipple(P.PropSheet):
     radius = cast(float, "prop:Real")
 
 
-class PsDistortionSphere(P.PropSheet):
+class PsDistortionSphere(PropSheet):
     center = "prop:Vector2D"
     distortion_height = cast(float, "prop:Real")
     radius = cast(float, "prop:Real")
 
 
-class PsDistortionSpiral(P.PropSheet):
+class PsDistortionSpiral(PropSheet):
     center = "prop:Vector2D"
     distortion_strength = cast(float, "prop:Real")
     radius = cast(float, "prop:Real")
 
 
-class PsEdgeDetect(P.PropSheet):
+class PsEdgeDetect(PropSheet):
     edge_strength = cast(float, "prop:Real")
 
 
-class PsEmboss(P.PropSheet):
+class PsEmboss(PropSheet):
     amount = cast(float, "prop:Real")
 
 
-class PsFlip(P.PropSheet):
+class PsFlip(PropSheet):
     flip_horizontally = cast(bool, "prop:Bool")
     flip_vertically = cast(bool, "prop:Bool")
 
 
-class PsFxaa(P.PropSheet):
+class PsFxaa(PropSheet):
     pass
 
 
-class PsGaussianBlur(P.PropSheet):
+class PsGaussianBlur(PropSheet):
     amount = cast(float, "prop:Real")
 
 
-class PsHDRBloomTonemap(P.PropSheet):
+class PsHDRBloomTonemap(PropSheet):
     bloom_threshold = cast(float, "prop:Real")
     blur_falloff = cast(float, "prop:Real")
     channel_threshold = cast(float, "prop:Real")
@@ -5065,19 +5064,19 @@ class PsHDRBloomTonemap(P.PropSheet):
     tonemapping_lerp = cast(float, "prop:Real")
 
 
-class PsMotionBlur(P.PropSheet):
+class PsMotionBlur(PropSheet):
     blur_quality = cast(float, "prop:Real")
     fade_amount = cast(float, "prop:Real")
 
 
-class PsScatter(P.PropSheet):
+class PsScatter(PropSheet):
     amount = cast(float, "prop:Real")
     direction = cast(int, "prop:Int")
     noise_sample = "prop:Property"
     randomize = cast(bool, "prop:Bool")
 
 
-class PsSCurveTonemap(P.PropSheet):
+class PsSCurveTonemap(PropSheet):
     contrast_boost = cast(float, "prop:Real")
     exposure_value = cast(float, "prop:Real")
     gamma_value = cast(float, "prop:Real")
@@ -5090,7 +5089,7 @@ class PsSCurveTonemap(P.PropSheet):
     white_point = cast(float, "prop:Real")
 
 
-class PsTiltShift(P.PropSheet):
+class PsTiltShift(PropSheet):
     blur_amount = cast(float, "prop:Real")
     focus_position = cast(float, "prop:Real")
     focus_width = cast(float, "prop:Real")
@@ -5098,7 +5097,7 @@ class PsTiltShift(P.PropSheet):
     is_vertical = cast(bool, "prop:Bool")
 
 
-class PsVignette(P.PropSheet):
+class PsVignette(PropSheet):
     vignette_color = "prop:Vector3D"
     vignette_radius = cast(float, "prop:Real")
     vignette_strength = cast(float, "prop:Real")
@@ -5254,7 +5253,7 @@ class PsWasdController(PsItem):
     y_speed = cast(float, "prop:Real")
 
 
-class PsBounds(P.PropSheet):
+class PsBounds(PropSheet):
     maximum = "prop:Vector3D"
     minimum = "prop:Vector3D"
 
@@ -5363,13 +5362,13 @@ class PsOrthographicCamera(PsCamera):
     vertical_magnification = cast(float, "prop:Real")
 
 
-class PsPass(P.PropSheet):
+class PsPass(PropSheet):
     commands = cast(list, "prop:List")
     output = "prop:Property"
     shaders = cast(list, "prop:List")
 
 
-class PsPickResult(P.PropSheet):
+class PsPickResult(PropSheet):
     distance = cast(float, "prop:Number")
     object_hit = "prop:Property"
     scene_position = "prop:Vector3D"
@@ -5407,7 +5406,7 @@ class PsPrincipledMaterial(PsMaterial):
     specular_tint = cast(float, "prop:Real")
 
 
-class PsRenderStats(P.PropSheet):
+class PsRenderStats(PropSheet):
     fps = cast(int, "prop:Int")
     frame_time = cast(float, "prop:Number")
     max_frame_time = cast(float, "prop:Number")
@@ -5450,7 +5449,7 @@ class PsSetUniformValue(PsCommand):
     value = "prop:Property"
 
 
-class PsShader(P.PropSheet):
+class PsShader(PropSheet):
     shader = cast(str, "prop:Url")
     stage = cast(int, "prop:Enumeration")
 
@@ -5481,12 +5480,12 @@ class PsTextureData(PsObject3D):
     pass
 
 
-class PsTextureInput(P.PropSheet):
+class PsTextureInput(PropSheet):
     enabled = cast(bool, "prop:Bool")
     texture = "prop:Property"
 
 
-class PsView3D(P.PropSheet):
+class PsView3D(PropSheet):
     camera = "prop:Property"
     environment = "prop:Property"
     import_scene = "prop:Property"
@@ -5503,7 +5502,7 @@ class PsChangeLanguageKey(PsBaseKey):
     custom_layouts_only = cast(bool, "prop:Bool")
 
 
-class PsEnterKeyAction(P.PropSheet):
+class PsEnterKeyAction(PropSheet):
     pass
 
 
@@ -5529,7 +5528,7 @@ class PsHideKeyboardKey(PsBaseKey):
     pass
 
 
-class PsInputContext(P.PropSheet):
+class PsInputContext(PropSheet):
     anchor_position = cast(int, "prop:Int")
     anchor_rect_intersects_clip_rect = cast(bool, "prop:Bool")
     anchor_rectangle = "prop:Rect"
@@ -5550,7 +5549,7 @@ class PsInputContext(P.PropSheet):
     uppercase = cast(bool, "prop:Bool")
 
 
-class PsInputEngine(P.PropSheet):
+class PsInputEngine(PropSheet):
     active_key = cast(int, "prop:Int")
     input_method = "prop:Property"
     input_mode = cast(int, "prop:Int")
@@ -5561,7 +5560,7 @@ class PsInputEngine(P.PropSheet):
     word_candidate_list_visible_hint = cast(bool, "prop:Bool")
 
 
-class PsInputMethod(P.PropSheet):
+class PsInputMethod(PropSheet):
     input_context = "prop:Property"
     input_engine = "prop:Property"
 
@@ -5596,7 +5595,7 @@ class PsKeyboardLayoutLoader(PsLoader):
     shared_layouts = "prop:Var"
 
 
-class PsKeyboardObserver(P.PropSheet):
+class PsKeyboardObserver(PropSheet):
     layout = "prop:Property"
 
 
@@ -5613,11 +5612,11 @@ class PsNumberKey(PsKey):
     pass
 
 
-class PsSelectionListModel(P.PropSheet):
+class PsSelectionListModel(PropSheet):
     pass
 
 
-class PsShiftHandler(P.PropSheet):
+class PsShiftHandler(PropSheet):
     auto_capitalization_enabled = cast(bool, "prop:Bool")
     sentence_ending_characters = cast(str, "prop:String")
     toggle_shift_enabled = cast(bool, "prop:Bool")
@@ -5635,7 +5634,7 @@ class PsSymbolModeKey(PsKey):
     pass
 
 
-class PsTrace(P.PropSheet):
+class PsTrace(PropSheet):
     canceled = cast(bool, "prop:Bool")
     channels = cast(list, "prop:List")
     final = cast(bool, "prop:Bool")
@@ -5660,7 +5659,7 @@ class PsTraceInputKey(PsItem):
     weight = cast(float, "prop:Real")
 
 
-class PsVirtualKeyboard(P.PropSheet):
+class PsVirtualKeyboard(PropSheet):
     pass
 
 
@@ -5754,7 +5753,7 @@ class PsTraceInputKeyPanel(PsItem):
     trace_margins = cast(float, "prop:Real")
 
 
-class PsVirtualKeyboardSettings(P.PropSheet):
+class PsVirtualKeyboardSettings(PropSheet):
     active_locales = cast(list, "prop:List")
     available_locales = cast(list, "prop:List")
     default_dictionary_disabled = cast(bool, "prop:Bool")
@@ -5770,7 +5769,7 @@ class PsVirtualKeyboardSettings(P.PropSheet):
     word_candidate_list = "prop:WordCandidateList"
 
 
-class PsBinding(P.PropSheet):
+class PsBinding(PropSheet):
     delayed = cast(bool, "prop:Bool")
     property = cast(str, "prop:String")
     restore_mode = cast(int, "prop:Enumeration")
@@ -5779,17 +5778,17 @@ class PsBinding(P.PropSheet):
     when = cast(bool, "prop:Bool")
 
 
-class PsConnections(P.PropSheet):
+class PsConnections(PropSheet):
     enabled = cast(bool, "prop:Bool")
     ignore_unknown_signals = cast(bool, "prop:Bool")
     target = "prop:Property"
 
 
-class PsDate(P.PropSheet):
+class PsDate(PropSheet):
     pass
 
 
-class PsLocale(P.PropSheet):
+class PsLocale(PropSheet):
     am_text = cast(str, "prop:String")
     decimal_point = cast(str, "prop:String")
     exponential = cast(str, "prop:String")
@@ -5810,16 +5809,16 @@ class PsLocale(P.PropSheet):
     zero_digit = cast(str, "prop:String")
 
 
-class PsLoggingCategory(P.PropSheet):
+class PsLoggingCategory(PropSheet):
     default_log_level = cast(int, "prop:Enumeration")
     name_ = cast(str, "prop:String")
 
 
-class PsNumber(P.PropSheet):
+class PsNumber(PropSheet):
     pass
 
 
-class PsQt(P.PropSheet):
+class PsQt(PropSheet):
     application = "prop:Property"
     input_method = "prop:Property"
     platform = "prop:Property"
@@ -5827,11 +5826,11 @@ class PsQt(P.PropSheet):
     ui_language = cast(str, "prop:String")
 
 
-class PsString(P.PropSheet):
+class PsString(PropSheet):
     pass
 
 
-class PsTimer(P.PropSheet):
+class PsTimer(PropSheet):
     interval = cast(int, "prop:Int")
     repeat = cast(bool, "prop:Bool")
     running = cast(bool, "prop:Bool")
@@ -5902,7 +5901,7 @@ class PsSystemTrayIcon(PsQtObject):
     visible = cast(bool, "prop:Bool")
 
 
-class PsDelegateChoice(P.PropSheet):
+class PsDelegateChoice(PropSheet):
     column = cast(int, "prop:Int")
     delegate = "prop:Property"
     index = cast(int, "prop:Int")
@@ -5910,22 +5909,22 @@ class PsDelegateChoice(P.PropSheet):
     row = cast(int, "prop:Int")
 
 
-class PsDelegateChooser(P.PropSheet):
+class PsDelegateChooser(PropSheet):
     choices = cast(list, "prop:List")
     role = cast(str, "prop:String")
 
 
-class PsTableModel(P.PropSheet):
+class PsTableModel(PropSheet):
     column_count = cast(int, "prop:Int")
     row_count = cast(int, "prop:Int")
     rows = "prop:Property"
 
 
-class PsTableModelColumn(P.PropSheet):
+class PsTableModelColumn(PropSheet):
     pass
 
 
-class PsDelegateModel(P.PropSheet):
+class PsDelegateModel(PropSheet):
     count = cast(int, "prop:Int")
     delegate = "prop:Property"
     filter_on_group = cast(str, "prop:String")
@@ -5937,13 +5936,13 @@ class PsDelegateModel(P.PropSheet):
     root_index = "prop:Property"
 
 
-class PsDelegateModelGroup(P.PropSheet):
+class PsDelegateModelGroup(PropSheet):
     count = cast(int, "prop:Int")
     include_by_default = cast(bool, "prop:Bool")
     name_ = cast(str, "prop:String")
 
 
-class PsInstantiator(P.PropSheet):
+class PsInstantiator(PropSheet):
     active = cast(bool, "prop:Bool")
     asynchronous = cast(bool, "prop:Bool")
     count = cast(int, "prop:Int")
@@ -5952,7 +5951,7 @@ class PsInstantiator(P.PropSheet):
     object = "prop:Property"
 
 
-class PsItemSelectionModel(P.PropSheet):
+class PsItemSelectionModel(PropSheet):
     current_index = "prop:Property"
     has_selection = cast(bool, "prop:Bool")
     model = "prop:Property"
@@ -5960,35 +5959,35 @@ class PsItemSelectionModel(P.PropSheet):
     selection = "prop:Property"
 
 
-class PsListElement(P.PropSheet):
+class PsListElement(PropSheet):
     pass
 
 
-class PsListModel(P.PropSheet):
+class PsListModel(PropSheet):
     count = cast(int, "prop:Int")
     dynamic_roles = cast(bool, "prop:Bool")
 
 
-class PsObjectModel(P.PropSheet):
+class PsObjectModel(PropSheet):
     count = cast(int, "prop:Int")
 
 
-class PsPackage(P.PropSheet):
+class PsPackage(PropSheet):
     pass
 
 
-class PsEventConnection(P.PropSheet):
+class PsEventConnection(PropSheet):
     events = "prop:Property"
     state_machine = "prop:Property"
 
 
-class PsInvokedServices(P.PropSheet):
+class PsInvokedServices(PropSheet):
     children = "prop:Var"
     qml_children = cast(list, "prop:List")
     state_machine = "prop:Property"
 
 
-class PsScxmlStateMachine(P.PropSheet):
+class PsScxmlStateMachine(PropSheet):
     data_model = "prop:Property"
     initial_values = "prop:Var"
     initialized = cast(bool, "prop:Bool")
@@ -6001,20 +6000,20 @@ class PsScxmlStateMachine(P.PropSheet):
     session_id = cast(str, "prop:String")
 
 
-class PsStateMachineLoader(P.PropSheet):
+class PsStateMachineLoader(PropSheet):
     source = cast(str, "prop:Url")
     state_machine = "prop:Property"
 
 
-class PsIdleInhibitManagerV1(P.PropSheet):
+class PsIdleInhibitManagerV1(PropSheet):
     pass
 
 
-class PsQtTextInputMethodManager(P.PropSheet):
+class PsQtTextInputMethodManager(PropSheet):
     pass
 
 
-class PsShellSurface(P.PropSheet):
+class PsShellSurface(PropSheet):
     window_type = "prop:Property"
 
 
@@ -6024,14 +6023,14 @@ class PsShellSurfaceItem(PsWaylandQuickItem):
     shell_surface = "prop:Property"
 
 
-class PsWaylandClient(P.PropSheet):
+class PsWaylandClient(PropSheet):
     compositor = "prop:Property"
     group_id = cast(int, "prop:Int")
     process_id = cast(int, "prop:Int")
     user_id = cast(int, "prop:Int")
 
 
-class PsWaylandCompositor(P.PropSheet):
+class PsWaylandCompositor(PropSheet):
     additional_shm_formats = cast(list, "prop:List")
     created = cast(bool, "prop:Bool")
     default_output = "prop:Property"
@@ -6042,11 +6041,11 @@ class PsWaylandCompositor(P.PropSheet):
     use_hardware_integration_extension = cast(bool, "prop:Bool")
 
 
-class PsWaylandHardwareLayer(P.PropSheet):
+class PsWaylandHardwareLayer(PropSheet):
     stacking_level = cast(int, "prop:Int")
 
 
-class PsWaylandOutput(P.PropSheet):
+class PsWaylandOutput(PropSheet):
     automatic_frame_callback = cast(bool, "prop:Bool")
     available_geometry = "prop:Rect"
     compositor = "prop:Property"
@@ -6062,11 +6061,11 @@ class PsWaylandOutput(P.PropSheet):
     window = "prop:Property"
 
 
-class PsWaylandSeat(P.PropSheet):
+class PsWaylandSeat(PropSheet):
     pass
 
 
-class PsWaylandSurface(P.PropSheet):
+class PsWaylandSurface(PropSheet):
     buffer_scale = "prop:Size"
     buffer_size = "prop:Size"
     client = "prop:Property"
@@ -6080,7 +6079,7 @@ class PsWaylandSurface(P.PropSheet):
     use_texture_alpha = cast(bool, "prop:Bool")
 
 
-class PsWaylandView(P.PropSheet):
+class PsWaylandView(PropSheet):
     allow_discard_front_buffer = cast(bool, "prop:Bool")
     buffer_locked = cast(bool, "prop:Bool")
     output = "prop:Property"
@@ -6142,5 +6141,5 @@ class PsTestCase(PsItem):
     window_shown = cast(bool, "prop:Bool")
 
 
-class PsTouchEventSequence(P.PropSheet):
+class PsTouchEventSequence(PropSheet):
     pass

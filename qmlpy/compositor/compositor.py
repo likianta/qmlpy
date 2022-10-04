@@ -1,6 +1,8 @@
-import textwrap
 import typing as t
+from functools import partial
 from secrets import token_hex
+from textwrap import dedent
+from textwrap import indent
 
 from lk_utils import dumps
 
@@ -8,9 +10,6 @@ from .._typehint import T as T0
 from ..declarative import id_mgr
 
 __all__ = ['build_component', 'build_tree']
-
-dedent = lambda x: textwrap.dedent(x).strip()
-indent = textwrap.indent
 
 
 class T:
@@ -24,7 +23,7 @@ class Template:
         {head}
         
         {body}
-    ''')
+    ''').strip()
     WidgetBlock = dedent('''
         {widget_name} {{
             id: {id}
@@ -38,7 +37,7 @@ class Template:
 
             {children}
         }}
-    ''')
+    ''').strip()
 
 
 def build_tree(file_o: str) -> None:
@@ -58,24 +57,30 @@ def build_component(comp: T.Component, level: int = None) -> str:
 def _build_loop(comp: T.Component, level: int) -> str:
     out = dedent(Template.WidgetBlock.format(
         widget_name=comp.widget_name,
-        id=f'u{comp.id}',
-        object_name='{}#{}'.format(comp.widget_name, comp.id),
+        id=f'comp_{comp.id}',
+        object_name='{}#{}'.format(
+            comp.widget_name,
+            str(comp.id).replace('_', '.')
+        ),
         properties=indent(
             '\n'.join(sorted(_build_properties(comp.properties))),
             '    '
-        ).lstrip() or '// NO_PROPERTY_DEFINED',
+        ).lstrip() or '// NO PROPERTY DEFINED',
         connections=indent(
             '\n'.join(sorted(_build_connections(comp.properties))),
             '    '
-        ).lstrip() or '// NO_CONNECTION_DEFINED',
+        ).lstrip() or '// NO CONNECTION DEFINED',
         signals=indent(
             '\n'.join(sorted(_build_signals(comp.signals))),
             '    '
-        ).lstrip() or '// NO_SIGNAL_DEFINED',
+        ).lstrip() or '// NO SIGNAL DEFINED',
         children=indent(
-            '\n\n'.join(map(_build_loop, id_mgr.get_children(comp.id))),
+            '\n\n'.join(map(
+                partial(_build_loop, level=level + 1),
+                id_mgr.get_children(comp.id)
+            )),
             '    '
-        ).lstrip() or '// NO_CHILD_DEFINED',
+        ).lstrip() or '// NO CHILD DEFINED',
     ))
     out = indent(out, ' ' * (level - 1) * 4)
     return out
