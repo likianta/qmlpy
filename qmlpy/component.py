@@ -8,14 +8,13 @@ from .declarative import ctx_mgr
 
 
 class T:
-    Component = t.TypeVar('Component', bound='Component')
-    Level = int  # 1, 2, 3, ... see also `..declarative.id_system.Id`
-    Properties = ...
-    Signals = ...
+    Level = int  # 1, 2, 3, ... see also `.declarative.id_system.Id.level`
 
 
 class Component:
     id: Id
+    signals = {}  # TEST
+    properties: dict
     
     def __enter__(self) -> t.Self:
         self.id = ctx_mgr.enter(self)
