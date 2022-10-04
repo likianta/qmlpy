@@ -21,6 +21,6 @@ from inspect import currentframe
 from .fake_type_getter import faker
 
 
-def register_fake_typing(name: str):
+def register_fake_typing(name: str = 'T'):
     frame = currentframe().f_back
     frame.f_globals[name] = faker

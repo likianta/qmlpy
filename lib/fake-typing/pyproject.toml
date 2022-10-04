@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fake-typing"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = ["Likianta <likianta@foxmail.com>"]
 license = "MIT"
