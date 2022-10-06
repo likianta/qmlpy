@@ -23,8 +23,8 @@ class path:  # noqa
     json4 = f'{resources}/qtdoc_compiled/4_all_qmlpy_widgets.json'
     
     temp1 = f'{resources}/widgets_template/__base__.txt'
-    temp2 = f'{resources}/widgets_template/__init__.txt'
-    temp3 = f'{resources}/widgets_template/__list__.txt'
+    temp2 = f'{resources}/widgets_template/__list__.txt'
+    temp3 = f'{resources}/widgets_template/__init__.txt'
     temp4 = f'{resources}/widgets_template/readme.md'
     temp5 = f'{resources}/widgets_template/api_init.txt'
     

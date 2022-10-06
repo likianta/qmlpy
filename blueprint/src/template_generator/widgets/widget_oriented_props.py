@@ -24,14 +24,14 @@ class T(T0):
     _PropType = str
     Props = t.Dict[_PropName, _PropType]
     
-    WidgetSheetData1 = t.Dict[WidgetName, t.Dict[ParentName, Props]]
-    WidgetSheetData2 = t.Dict[WidgetName, t.Tuple[ParentName, TemplateCode]]
+    WidgetSheet1 = t.Dict[WidgetName, t.Dict[ParentName, Props]]
+    WidgetSheet2 = t.Dict[WidgetName, t.Tuple[ParentName, TemplateCode]]
 
 
 def main(file_o: str = path.proj_root + '/qmlpy/widgets/widget_props.py',
          cast_safe=True):
     data_r: T.JsonData3 = loads(path.json3)
-    data_w: T.WidgetSheetData1 = defaultdict(dict)
+    data_w: T.WidgetSheet1 = defaultdict(dict)
     
     # data_r 的数据结构比较复杂. 下面的代码逻辑主要基于 `io.json3.<data>.<key:qtquick>`
     # 进行观察和编写.
@@ -54,7 +54,7 @@ def main(file_o: str = path.proj_root + '/qmlpy/widgets/widget_props.py',
             props = v1['props']
             data_w[widget_name][parent_name] = props
     
-    widgets_dict: T.WidgetSheetData2 = {}
+    widgets_dict: T.WidgetSheet2 = {}
     widget_tmpl: str = dedent('''
         class {WIDGET}({PARENT}):
             {PROPS}
@@ -101,7 +101,7 @@ def main(file_o: str = path.proj_root + '/qmlpy/widgets/widget_props.py',
         """
         from typing import cast
         
-        from ..properties.core import PropSheet
+        from ..psf import PropSheet
 
 
         {WIDGETS}
@@ -111,7 +111,7 @@ def main(file_o: str = path.proj_root + '/qmlpy/widgets/widget_props.py',
     )).strip(), file_o)
 
 
-def _merge_multi_parent_case(data: T.WidgetSheetData1) \
+def _merge_multi_parent_case(data: T.WidgetSheet1) \
         -> t.Iterator[t.Tuple[T.WidgetName, T.ParentName, T.Props]]:
     """
     Before:
@@ -250,16 +250,16 @@ def _generate_props(
         
         if cast_safe:
             if 'cast(' in prop_type:
-                prop_type = re.sub(r', (.*?)\)', r', "prop:\1")', prop_type)
+                prop_type = re.sub(r', (.*?)\)', r', "P:\1")', prop_type)
                 #  e.g. 'cast(str, String)' -> 'cast(str, "String")'
             else:
-                prop_type = '"prop:{}"'.format(prop_type)
+                prop_type = '"P:{}"'.format(prop_type)
         
         yield prop_name, prop_type
 
 
 def _sort_formatted_list(
-        widgets_dict: T.WidgetSheetData2,
+        widgets_dict: T.WidgetSheet2,
         exclusions: tuple = ()
 ) -> T.TemplateCode:
     # counter

@@ -27,46 +27,53 @@ def main(api_dir: str = path.proj_root + '/qmlpy/widgets/api'):
     data_r: T.JsonData3 = loads(path.json3)
     name_2_path = _indexing_widget_name_2_package_path(data_r)
     
-    # data_r 的数据结构比较复杂. 下面的代码逻辑主要基于 `io.json3.<data>.<key
-    # :qtquick>` 进行观察和编写.
+    # the structure of `data_r` is complex. the following code logic is mainly
+    # written and deduced with an observation on `io.json3 > content > key:
+    # qtquick`.
     
     print('creating dirs', ':d')
     _create_dirs(api_dir, data_r.keys())
     
-    BaseInitList = namedtuple('BaseInitList', ('base', 'init', 'list'))
-    tmpl_files = BaseInitList(path.temp1, path.temp2, path.temp3)
-    tmpl_data = BaseInitList(*map(loads, tmpl_files))
-    del tmpl_files
+    Template = namedtuple('BaseListInit', ('base', 'list', 'init'))
+    files_i = Template(path.temp1, path.temp2, path.temp3)
+    temp_i = Template(*map(loads, files_i))
+    del files_i
     
     for package, v0 in data_r.items():
         if package == '': continue
         print(package, ':di')
         
-        target_dir = f'{api_dir}/{package.replace(".", "/").lower()}'
-        target_files = BaseInitList(
-            f'{target_dir}/__base__.py',
-            f'{target_dir}/__init__.py',
-            f'{target_dir}/__list__.py',
+        dir_o = f'{api_dir}/{package.replace(".", "/").lower()}'
+        files_o = Template(
+            f'{dir_o}/__base__.py',
+            f'{dir_o}/__list__.py',
+            f'{dir_o}/__init__.py',
         )
-        assert not ospath.exists(target_files.init)
+        assert not ospath.exists(files_o.init)
         
-        # generate target files (__base__, __init__, __list__).
-        _generate_base(tmpl_data.base, target_files.base,
-                       file_o_relpath=target_files.base[len(api_dir) + 1:],
-                       data=v0, name_2_path=name_2_path)
-        _generate_init(tmpl_data.init, target_files.init, package=package)
-        _generate_list(tmpl_data.list, target_files.list, data=v0)
+        # generate target files
+        _generate_base(
+            temp_i.base, files_o.base,
+            file_o_relpath=files_o.base[len(api_dir) + 1:],
+            data=v0, name_2_path=name_2_path
+        )
+        _generate_list(
+            temp_i.list, files_o.list,
+            data=v0
+        )
+        _generate_init(
+            temp_i.init, files_o.init,
+            package=package
+        )
     
-    # put readme and __init__ files in api root dir.
+    # put 'readme' and '__init__' files in api root dir.
     shutil.copyfile(path.temp4, f'{api_dir}/readme.md')
     shutil.copyfile(path.temp5, f'{api_dir}/__init__.py')
 
 
 # ------------------------------------------------------------------------------
 
-def _indexing_widget_name_2_package_path(
-        data: T.JsonData3
-) -> T.Name2Path:
+def _indexing_widget_name_2_package_path(data: T.JsonData3) -> T.Name2Path:
     out: T.Name2Path = {}
     for package, v0 in data.items():
         package_path = package.replace('.', '/').lower()
@@ -75,33 +82,31 @@ def _indexing_widget_name_2_package_path(
     return out
 
 
-def _create_dirs(widgets_dir, packages):
-    if not ospath.exists(widgets_dir):
-        mkdir(widgets_dir)
+def _create_dirs(root_dir: str, packages: t.Iterable[str]):
+    """
+    notice: element in packages may be empty! remember to filter it.
+    """
+    if not ospath.exists(root_dir):
+        mkdir(root_dir)
     
-    dirs_ = set()
-    
-    for pkg in packages:
-        if pkg == '':
-            continue
-        else:
-            pkg = pkg.lower()
-        
-        tmp = widgets_dir
+    dirs_: t.Set[str] = set()
+    for pkg in filter(None, packages):
+        pkg = pkg.lower()
+        tmp = root_dir
         for node in pkg.split('.'):
             tmp += '/' + node
             dirs_.add(tmp)
     
     for d in sorted(dirs_):
         if not ospath.exists(d):
-            print(':i', ospath.relpath(d, widgets_dir))
+            print(':i', ospath.relpath(d, root_dir))
             mkdir(d)
 
 
 # -----------------------------------------------------------------------------
 
 def _generate_base(
-        tmpl_i: str,
+        temp_i: str,
         file_o: str,
         file_o_relpath: str,
         data: T.PackageInfo,
@@ -113,41 +118,17 @@ def _generate_base(
         name_2_path=name_2_path,
     ))
     dumps(
-        tmpl_i.format(ADDITIONAL_IMPORTS='\n'.join(inserted_lines)).strip(),
+        temp_i.format(ADDITIONAL_IMPORTS='\n'.join(inserted_lines)).strip(),
         file_o
     )
 
 
-def _generate_init(tmpl_i: str, file_o: str, package: str) -> None:
-    # tmpl: 'template'
-    # kwargs: {'package': <str>}
-    dumps(
-        tmpl_i.format(QMLTYPE=package).strip(),
-        file_o
-    )
-
-
-def _generate_list(tmpl_i: str, file_o: str, data: T.WidgetSheetData1) -> None:
-    # tmpl: 'template'
-    # kwargs: {
-    #   'data': {  # type: TWidgetData
-    #       <str widget_name>: {
-    #           'parent': (<str parent_package>,
-    #                      <str parent_name>),
-    #           'props': {
-    #               <str prop_name>: <str prop_type>,
-    #               ...
-    #           }
-    #       }
-    #   }
-    # }
-    
+def _generate_list(temp_i: str, file_o: str, data: T.WidgetSheet1) -> None:
     base_component = 'C'
-    # # base_component = 'Component'
     
-    widgets_dict = {}  # type: T.WidgetSheetData2
-    widget_tmpl = dedent('''
-        class {WIDGET}({PARENT}, {PROP_SHEET}):
+    widgets_dict: T.WidgetSheet2 = {}
+    widget_temp = dedent('''
+        class {WIDGET}({PARENT}, {PROP_SHEET}, {SIGNAL_SHEET}, {FUNC_SHEET}):
             pass
     ''').strip()
     
@@ -157,16 +138,33 @@ def _generate_list(tmpl_i: str, file_o: str, data: T.WidgetSheetData1) -> None:
         
         widgets_dict[widget_name] = (
             parent_name,
-            widget_tmpl.format(
+            widget_temp.format(
                 WIDGET=widget_name,
                 PARENT=parent_name,
-                PROP_SHEET=f'W.Ps{widget_name}'
+                PROP_SHEET=f'P.{widget_name}',
+                SIGNAL_SHEET=f'S.{widget_name}',
+                FUNC_SHEET=f'F.{widget_name}',
             )
         )
     
-    dumps(tmpl_i.format(WIDGETS='\n\n\n'.join(
+        '''
+        note: 'C' 'P' 'S' 'F' are names imported from `__base__` file.
+        see also:
+            - def _generate_base
+            - ~/blueprint/resources/widgets_template/__base__.txt
+            - ~/qmlpy/widgets/namespace/__qml_namespace__.py
+        '''
+    
+    dumps(temp_i.format(WIDGETS='\n\n\n'.join(
         _sort_formatted_list(widgets_dict, (base_component,))
     )).strip(), file_o)
+
+
+def _generate_init(temp_i: str, file_o: str, package: str) -> None:
+    dumps(
+        temp_i.format(QMLTYPE=package).strip(),
+        file_o
+    )
 
 
 # -----------------------------------------------------------------------------
@@ -177,8 +175,19 @@ def _fix_missing_parents(
         name_2_path: T.Name2Path,
 ) -> t.Iterator[str]:
     """
+    in data, we have a dict:
+        {name: {'parent': parent_name, ...}, ...}
+    the parent name may not be in the same package, i.e. parent may not in
+    `data.keys()`. we need to import them by relative import.
+    
+    example:
+        # data = {'SomeWidget': {'parent': 'Item', ...}, ...}
+        from ..qtquick import Item
+        class SomeWidget(Item):
+            ...
+    
     args:
-        path_src: 1. relative, 2. directory.
+        path_src: should be: 1. relative, 2. directory.
     """
     all_parent_names = set()
     for v0 in data.values():
@@ -192,7 +201,7 @@ def _fix_missing_parents(
             path = name_2_path[name]
             print(f'found missing parent: [cyan]{name}[/]. '
                   f'we can import it from [magenta]{path}[/]', ':r')
-            paths[path].add(name)
+            paths[path].add(name)  # it means: from this path import this name.
     if not paths:
         return
     
