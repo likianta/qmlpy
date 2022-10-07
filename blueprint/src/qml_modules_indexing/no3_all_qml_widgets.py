@@ -12,7 +12,7 @@ from ..io import path
 
 
 def main(file_i: str, file_o: str,
-         qtdoc_dir: str = path.qt_source) -> None:
+         qtdoc_dir: str = path.qtdoc_src) -> None:
     """
     file_i and file_o are suggested using from `..io.path.step3`.
     """

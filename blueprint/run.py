@@ -26,12 +26,12 @@ def indexing_qml_modules(steps='1234'):
             be noticed it is order sensitive. ('1234' is different from '4321')
     """
     if '3' in steps:
-        if path.qt_source is None:
+        if path.qtdoc_src is None:
             print('the qtdoc root is not set. please manually fill it below. '
                   '(the path is usually like "<Qt>/Docs/Qt-5.15.2/qtdoc".)')
-            path.qt_source = normpath(input('input path: '))
-            assert os.path.exists(path.qt_source) and \
-                   path.qt_source.endswith('qtdoc')
+            path.qtdoc_src = normpath(input('input path: '))
+            assert os.path.exists(path.qtdoc_src) and \
+                   path.qtdoc_src.endswith('qtdoc')
     
     # noinspection PyArgumentList
     steps_to_exec = {
