@@ -11,7 +11,7 @@ class path:  # noqa
     proj_root = relpath('../..')
     blueprint = f'{proj_root}/blueprint'
     resources = f'{proj_root}/blueprint/resources'
-    qt_source = None  # TODO
+    qt_source = None  # see `../run.py > indexing_qml_modules > input`.
     #   see `../readme.md > requirements > qt documents`.
     
     html1 = f'{resources}/qtdoc/1_all_qml_modules.html'
@@ -40,8 +40,8 @@ class path:  # noqa
         return self.html2, self.json2
     
     @property
-    def step3(self) -> tuple[str, str]:
-        return self.json2, self.json3
+    def step3(self) -> tuple[str, str, str]:
+        return self.json2, self.json3, self.qt_source
     
     @property
     def step4(self) -> tuple[str, str]:

@@ -4,10 +4,12 @@ if True:
     import sys
     sys.path.insert(0, '..')
 
+import os
 from functools import partial
 
 import lk_logger  # noqa
 from argsense import cli
+from lk_utils.filesniff import normpath
 
 from blueprint.src.io import path
 from blueprint.src import qml_modules_indexing
@@ -23,6 +25,14 @@ def indexing_qml_modules(steps='1234'):
             from '1', '2', '3', etc. to '134', '1234', etc.
             be noticed it is order sensitive. ('1234' is different from '4321')
     """
+    if '3' in steps:
+        if path.qt_source is None:
+            print('the qtdoc root is not set. please manually fill it below. '
+                  '(the path is usually like "<Qt>/Docs/Qt-5.15.2/qtdoc".)')
+            path.qt_source = normpath(input('input path: '))
+            assert os.path.exists(path.qt_source) and \
+                   path.qt_source.endswith('qtdoc')
+    
     # noinspection PyArgumentList
     steps_to_exec = {
         '1': partial(qml_modules_indexing.step1, *path.step1),

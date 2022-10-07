@@ -28,7 +28,8 @@ Required python 3.8+ (recommend 3.10) and pip install...
 ## Qt Documents
 
 1. Install official Qt 5.15 or Qt 6.x.
-    1. Assumed you haved installed in `d:/programs/qt` (laterly we call it
+    1. Tick the "source" option, that will download Qt documentation resources.
+    2. Assumed you haved installed in `d:/programs/qt` (laterly we call it
     `<qt_root>`)
 2. Copy `<qt_root>/Docs/Qt-5.15/qtdoc/modules-qml.html` to
    `<project>/blueprint/resources/qtdoc/1_all_qml_modules.html`.
